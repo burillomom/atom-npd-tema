@@ -134,10 +134,8 @@
 
     <!-- Visão 1 (Principal): Prateleira de Caixas-Arquivo -->
     <div id="shelves-wrap" class="shelves-wrap" aria-live="polite">
-      <?php foreach ($fondsData as $idx => $f) {
-          $heightClass = $idx % 3 === 0 ? 'is-tall' : ($idx % 3 === 2 ? 'is-short' : '');
-      ?>
-        <div class="shelf-box <?php echo $heightClass; ?>"
+      <?php foreach ($fondsData as $f) { ?>
+        <div class="shelf-box"
              data-title="<?php echo esc_specialchars($f['title']); ?>"
              data-ref="<?php echo esc_specialchars($f['ref']); ?>"
              data-dates="<?php echo esc_specialchars($f['dates']); ?>"
@@ -146,9 +144,12 @@
              href="<?php echo url_for([$f['item'], 'module' => 'informationobject']); ?>"
              title="<?php echo esc_specialchars($f['title']); ?>">
             <div class="shelf-box__spine">
+              <div class="shelf-box__label">
+                <span class="shelf-box__label-ref"><?php echo esc_specialchars($f['ref'] ?: 'NPD'); ?></span>
+                <span class="shelf-box__spine-name"><?php echo esc_specialchars($f['title']); ?></span>
+                <span class="shelf-box__label-meta"><?php echo esc_specialchars($f['dates']); ?></span>
+              </div>
               <span class="shelf-box__hole" aria-hidden="true"></span>
-              <span class="shelf-box__spine-name"><?php echo esc_specialchars($f['title']); ?></span>
-              <span class="shelf-box__spine-tag"><?php echo esc_specialchars($f['start'] !== 9999 ? $f['start'] : ''); ?></span>
             </div>
             <div class="shelf-box__panel">
               <figure class="shelf-box__media">

@@ -28,17 +28,14 @@
   function getPerShelf() {
     var w = wrap.clientWidth || window.innerWidth;
     if (w <= 720) return 999;
-    // Deixa folga (~260px) para uma caixa abrir sem empurrar a linha
-    return Math.max(4, Math.floor((w - 260) / 86));
+    return Math.max(3, Math.floor((w - 240) / 128));
   }
 
-  function buildBox(f, idx) {
+  function buildBox(f) {
     var li = document.createElement("div");
-    var heightClass = idx % 3 === 0 ? "is-tall" : (idx % 3 === 2 ? "is-short" : "");
-    li.className = "shelf-box " + heightClass;
+    li.className = "shelf-box";
     li.dataset.id = f.ref;
 
-    var shortDates = (f.dates || "").split("–")[0].trim();
     var mediaHtml = f.image
       ? '<img alt="' + f.title + '" loading="lazy" src="' + f.image + '">'
       : '<div class="shelf-box__noimg">' + f.ref + '</div>';
@@ -46,9 +43,12 @@
     li.innerHTML =
       '<a class="shelf-box__link" href="#" title="' + f.title + '">' +
         '<div class="shelf-box__spine">' +
+          '<div class="shelf-box__label">' +
+            '<span class="shelf-box__label-ref">' + f.ref + '</span>' +
+            '<span class="shelf-box__spine-name">' + f.title + '</span>' +
+            '<span class="shelf-box__label-meta">' + f.dates + '</span>' +
+          '</div>' +
           '<span class="shelf-box__hole" aria-hidden="true"></span>' +
-          '<span class="shelf-box__spine-name">' + f.title + '</span>' +
-          '<span class="shelf-box__spine-tag">' + shortDates + '</span>' +
         '</div>' +
         '<div class="shelf-box__panel">' +
           '<figure class="shelf-box__media">' + mediaHtml + '</figure>' +

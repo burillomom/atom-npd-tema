@@ -77,7 +77,8 @@
   function getPerShelf() {
     var w = shelfWrap.clientWidth || window.innerWidth;
     if (w <= 720) return 999;
-    return Math.max(4, Math.floor((w - 260) / 86));
+    // Caixas mais grossas (116px) + folga (~240px) para abrir no hover sem quebrar a linha
+    return Math.max(3, Math.floor((w - 240) / 128));
   }
 
   var state = { sort: "random", view: "shelf", query: "", order: [] };
