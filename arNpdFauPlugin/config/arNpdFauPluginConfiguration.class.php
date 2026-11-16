@@ -31,9 +31,9 @@ class arNpdFauPluginConfiguration extends arDominionB5PluginConfiguration
     {
         parent::initialize();
 
-        // Registra os templates deste plugin antes dos templates do Dominion B5 / core
+        // Registra os templates deste plugin ANTES dos templates do Dominion B5 / core
         $decoratorDirs = sfConfig::get('sf_decorator_dirs');
-        $decoratorDirs[] = $this->rootDir . '/templates';
+        array_unshift($decoratorDirs, $this->rootDir . '/templates');
         sfConfig::set('sf_decorator_dirs', $decoratorDirs);
 
         // Garante que arNpdFauPlugin tenha prioridade sobre arDominionB5Plugin nos módulos e templates

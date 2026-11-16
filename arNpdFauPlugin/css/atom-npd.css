@@ -90,31 +90,59 @@ a:hover {
 }
 
 /* ---------- Top bar nativa do AtoM (#top-bar) ---------- */
-#top-bar {
+header#top-bar,
+#top-bar.navbar {
   position: sticky;
   top: 0;
   z-index: 1030;
-  background-color: color-mix(in srgb, var(--bg) 94%, transparent) !important;
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid transparent;
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  border-bottom: 1px solid var(--hair) !important;
   transition: border-color .25s var(--ease), background-color .3s var(--ease);
 }
 
 #top-bar.is-scrolled {
-  border-bottom-color: var(--hair);
+  border-bottom-color: var(--ink) !important;
 }
 
 #top-bar .navbar-brand,
 #top-bar .nav-link,
 #top-bar .btn-link,
-#top-bar button {
+#top-bar button,
+#top-bar a,
+#top-bar i,
+#top-bar svg {
   color: var(--ink) !important;
   font-size: 13.5px;
+}
+
+#top-bar .btn-dark,
+#top-bar .btn-secondary,
+#top-bar .atom-btn-secondary,
+#top-bar .dropdown-toggle {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: var(--ink) !important;
+  box-shadow: none !important;
+}
+
+#top-bar .btn-dark:hover,
+#top-bar .btn-secondary:hover,
+#top-bar .dropdown-toggle:hover {
+  background-color: var(--row-hover) !important;
 }
 
 #top-bar .navbar-brand {
   font-weight: 600;
   letter-spacing: -.015em;
+}
+
+#top-bar .navbar-brand img {
+  filter: invert(1) grayscale(1) contrast(1.2);
+}
+
+[data-theme="dark"] #top-bar .navbar-brand img {
+  filter: grayscale(1) brightness(1.1);
 }
 
 #top-bar .navbar-toggler {
@@ -253,6 +281,31 @@ h1, .h1, h2, .h2, h3, .h3 {
   background-color: var(--ink) !important;
   color: var(--bg) !important;
   border-color: var(--ink) !important;
+}
+
+/* Barra de ações (ex: botão Log in, Edit, Delete nas páginas internas) */
+.actions,
+section.actions,
+ul.actions,
+.actions.card {
+  background-color: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--hair) !important;
+  padding: 16px 0 !important;
+  border-radius: 0 !important;
+}
+
+.actions .btn,
+.actions .atom-btn-outline-light {
+  color: var(--ink) !important;
+  border: 1px solid var(--ink) !important;
+  background-color: transparent !important;
+}
+
+.actions .btn:hover,
+.actions .atom-btn-outline-light:hover {
+  background-color: var(--ink) !important;
+  color: var(--bg) !important;
 }
 
 .badge.bg-light,

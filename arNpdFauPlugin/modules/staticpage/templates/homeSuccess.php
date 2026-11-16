@@ -15,8 +15,12 @@
   }
   $topFonds = QubitInformationObject::get($criteria);
 
-  // Termo "Series" / "Série" para contar séries filhas de cada fundo
-  $seriesTerm = QubitTerm::getById(QubitTerm::SERIES_ID);
+  // Termo "Series" na taxonomia de Níveis de Descrição (34) para contar séries filhas
+  $seriesCriteria = new Criteria();
+  $seriesCriteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
+  $seriesCriteria->addJoin(QubitTerm::ID, QubitTermI18n::ID, Criteria::INNER_JOIN);
+  $seriesCriteria->add(QubitTermI18n::NAME, ['Series', 'Série'], Criteria::IN);
+  $seriesTerm = QubitTerm::getOne($seriesCriteria);
   $totalSeries = 0;
   $minYear = null;
   $maxYear = null;
