@@ -211,22 +211,26 @@ header#top-bar,
   border-bottom: 1px solid var(--hair);
 }
 
-/* ---------- Botão Noturno / Claro ---------- */
+/* ---------- Botão Noturno / Claro (ícone) ---------- */
 #npd-theme-toggle {
   background: none;
   border: 0;
-  padding: .5rem;
+  padding: .45rem .5rem;
   color: var(--grey) !important;
   cursor: pointer;
-  font-size: 13.5px;
-  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
 }
 
 #npd-theme-toggle:hover {
   color: var(--ink) !important;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
+
+#npd-theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] #npd-theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] #npd-theme-toggle .icon-sun { display: block; }
 
 /* ---------- Tipografia e componentes nas páginas internas do AtoM ---------- */
 h1, .h1, h2, .h2, h3, .h3 {

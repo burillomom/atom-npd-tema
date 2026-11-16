@@ -72,6 +72,10 @@ button, input { font: inherit; color: inherit; letter-spacing: inherit; }
 }
 .nav-link:hover, .nav-link.is-active, .nav-link[aria-expanded="true"] { background-size: 100% 1px; }
 .nav-link.muted:hover, .nav-link.muted[aria-expanded="true"] { color: var(--ink); }
+.theme-toggle-btn { display: inline-flex; align-items: center; justify-content: center; background-image: none !important; vertical-align: middle; }
+.theme-toggle-btn .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle-btn .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle-btn .icon-sun { display: block; }
 #menu-toggle { display: none; margin-left: auto; }
 
 #browse-menu { position: relative; }

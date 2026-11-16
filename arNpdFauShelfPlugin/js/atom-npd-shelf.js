@@ -7,7 +7,10 @@
   function setTheme(dark) {
     document.documentElement.dataset.theme = dark ? "dark" : "light";
     var btn = document.getElementById("npd-theme-toggle");
-    if (btn) btn.textContent = dark ? "Claro" : "Noturno";
+    if (btn) {
+      btn.setAttribute("aria-label", dark ? "Alternar modo claro" : "Alternar modo noturno");
+      btn.setAttribute("title", dark ? "Modo claro" : "Modo noturno");
+    }
     try { localStorage.setItem("npd-theme", dark ? "dark" : "light"); } catch (e) {}
   }
 
@@ -41,8 +44,11 @@
     var btn = document.createElement("button");
     btn.id = "npd-theme-toggle";
     btn.type = "button";
-    btn.setAttribute("aria-label", "Alternar modo noturno");
-    btn.textContent = initDark ? "Claro" : "Noturno";
+    btn.setAttribute("aria-label", initDark ? "Alternar modo claro" : "Alternar modo noturno");
+    btn.setAttribute("title", initDark ? "Modo claro" : "Modo noturno");
+    btn.innerHTML =
+      '<svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' +
+      '<svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"/></svg>';
     btn.addEventListener("click", function () {
       setTheme(document.documentElement.dataset.theme !== "dark");
     });

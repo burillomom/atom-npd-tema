@@ -152,7 +152,10 @@
   var themeBtn = document.getElementById("theme-toggle");
   function setTheme(dark) {
     document.documentElement.dataset.theme = dark ? "dark" : "light";
-    if (themeBtn) themeBtn.textContent = dark ? "Claro" : "Noturno";
+    if (themeBtn) {
+      themeBtn.setAttribute("aria-label", dark ? "Alternar modo claro" : "Alternar modo noturno");
+      themeBtn.setAttribute("title", dark ? "Modo claro" : "Modo noturno");
+    }
     try { localStorage.setItem("npd-theme", dark ? "dark" : "light"); } catch (e) {}
   }
   var urlDark = /[?&]theme=dark\b/.test(location.search);
