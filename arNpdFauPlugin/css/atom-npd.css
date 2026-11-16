@@ -137,12 +137,23 @@ header#top-bar,
   letter-spacing: -.015em;
 }
 
-#top-bar .navbar-brand img {
-  filter: invert(1) grayscale(1) contrast(1.2);
+#top-bar .navbar-brand .npd-brand-logo {
+  height: 36px;
+  width: auto;
+  display: inline-block;
+  filter: none !important;
 }
 
-[data-theme="dark"] #top-bar .navbar-brand img {
-  filter: grayscale(1) brightness(1.1);
+#top-bar .navbar-brand .npd-logo-dark {
+  display: none;
+}
+
+[data-theme="dark"] #top-bar .navbar-brand .npd-logo-light {
+  display: none;
+}
+
+[data-theme="dark"] #top-bar .navbar-brand .npd-logo-dark {
+  display: inline-block;
 }
 
 #top-bar .navbar-toggler {

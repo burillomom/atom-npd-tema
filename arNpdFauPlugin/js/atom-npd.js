@@ -11,10 +11,29 @@
     try { localStorage.setItem("npd-theme", dark ? "dark" : "light"); } catch (e) {}
   }
 
+  var urlDark = /[?&]theme=dark\b/.test(location.search);
+  var urlLight = /[?&]theme=light\b/.test(location.search);
   var savedTheme = null;
   try { savedTheme = localStorage.getItem("npd-theme"); } catch (e) {}
-  var initDark = savedTheme ? savedTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var initDark = urlDark ? true : urlLight ? false : (savedTheme ? savedTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches);
   setTheme(initDark);
+
+  // Substitui a logo padrão do AtoM pela logo do NPD (versão clara + noturna)
+  var brand = document.querySelector("#top-bar .navbar-brand");
+  if (brand && !brand.querySelector(".npd-logo-light")) {
+    var oldImg = brand.querySelector("img");
+    if (oldImg) oldImg.remove();
+    var lImg = document.createElement("img");
+    lImg.src = "/plugins/arNpdFauPlugin/images/logo-npd.png";
+    lImg.alt = "NPD · FAU UFRJ";
+    lImg.className = "npd-brand-logo npd-logo-light my-1 me-3";
+    var dImg = document.createElement("img");
+    dImg.src = "/plugins/arNpdFauPlugin/images/logo-npd-dark.png";
+    dImg.alt = "NPD · FAU UFRJ";
+    dImg.className = "npd-brand-logo npd-logo-dark my-1 me-3";
+    brand.insertBefore(dImg, brand.firstChild);
+    brand.insertBefore(lImg, brand.firstChild);
+  }
 
   // Insere o botão discretamente na barra nativa do AtoM (#top-bar)
   var navContainer = document.querySelector("#top-bar .navbar-nav");
