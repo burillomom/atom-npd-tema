@@ -49,12 +49,17 @@
           }
       }
 
-      $sCriteria = new Criteria();
-      $sCriteria->add(QubitInformationObject::PARENT_ID, $item->id);
       if ($seriesTerm) {
-          $sCriteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, $seriesTerm->id);
+          $seriesCount = (int) QubitPdo::fetchColumn(
+              'SELECT COUNT(*) FROM information_object WHERE parent_id = ? AND level_of_description_id = ?',
+              [$item->id, $seriesTerm->id]
+          );
+      } else {
+          $seriesCount = (int) QubitPdo::fetchColumn(
+              'SELECT COUNT(*) FROM information_object WHERE parent_id = ?',
+              [$item->id]
+          );
       }
-      $seriesCount = QubitInformationObjectPeer::doCount($sCriteria);
       $totalSeries += $seriesCount;
 
       $thumbPath = null;
