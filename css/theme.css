@@ -52,12 +52,8 @@ button, input { font: inherit; color: inherit; letter-spacing: inherit; }
 #top-bar.is-scrolled { border-bottom-color: var(--hair); }
 .top-bar__inner { display: flex; align-items: baseline; justify-content: space-between; gap: 32px; padding-top: 22px; padding-bottom: 18px; }
 
-#logo { display: inline-flex; gap: 12px; align-items: center; white-space: nowrap; }
+#logo { display: inline-flex; align-items: center; white-space: nowrap; }
 #logo .brand-logo { height: 34px; width: auto; display: block; }
-#logo .logo-dark { display: none; }
-[data-theme="dark"] #logo .logo-light { display: none; }
-[data-theme="dark"] #logo .logo-dark { display: block; }
-.site-sub { color: var(--grey); font-weight: 400; }
 
 .main-nav { display: flex; align-items: baseline; gap: 36px; }
 .nav-list { list-style: none; margin: 0; padding: 0; display: flex; align-items: baseline; gap: 20px; }

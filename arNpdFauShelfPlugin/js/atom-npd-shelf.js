@@ -22,18 +22,13 @@
   setTheme(initDark);
 
   var brand = document.querySelector("#top-bar .navbar-brand");
-  if (brand && !brand.querySelector(".npd-logo-light")) {
+  if (brand && !brand.querySelector(".npd-brand-logo")) {
     var oldImg = brand.querySelector("img");
     if (oldImg) oldImg.remove();
     var lImg = document.createElement("img");
     lImg.src = "/plugins/arNpdFauShelfPlugin/images/logo-npd.png";
     lImg.alt = "NPD · FAU UFRJ";
-    lImg.className = "npd-brand-logo npd-logo-light my-1 me-3";
-    var dImg = document.createElement("img");
-    dImg.src = "/plugins/arNpdFauShelfPlugin/images/logo-npd-dark.png";
-    dImg.alt = "NPD · FAU UFRJ";
-    dImg.className = "npd-brand-logo npd-logo-dark my-1 me-3";
-    brand.insertBefore(dImg, brand.firstChild);
+    lImg.className = "npd-brand-logo my-1 me-3";
     brand.insertBefore(lImg, brand.firstChild);
   }
 

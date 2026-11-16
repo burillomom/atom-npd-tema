@@ -21,20 +21,15 @@
   var initDark = urlDark ? true : urlLight ? false : (savedTheme ? savedTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches);
   setTheme(initDark);
 
-  // Substitui a logo padrão do AtoM pela logo do NPD (versão clara + noturna)
+  // Substitui a logo padrão do AtoM somente pelo ícone do NPD (cor fixa em ambos os modos)
   var brand = document.querySelector("#top-bar .navbar-brand");
-  if (brand && !brand.querySelector(".npd-logo-light")) {
+  if (brand && !brand.querySelector(".npd-brand-logo")) {
     var oldImg = brand.querySelector("img");
     if (oldImg) oldImg.remove();
     var lImg = document.createElement("img");
     lImg.src = "/plugins/arNpdFauPlugin/images/logo-npd.png";
     lImg.alt = "NPD · FAU UFRJ";
-    lImg.className = "npd-brand-logo npd-logo-light my-1 me-3";
-    var dImg = document.createElement("img");
-    dImg.src = "/plugins/arNpdFauPlugin/images/logo-npd-dark.png";
-    dImg.alt = "NPD · FAU UFRJ";
-    dImg.className = "npd-brand-logo npd-logo-dark my-1 me-3";
-    brand.insertBefore(dImg, brand.firstChild);
+    lImg.className = "npd-brand-logo my-1 me-3";
     brand.insertBefore(lImg, brand.firstChild);
   }
 

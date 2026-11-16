@@ -138,22 +138,10 @@ header#top-bar,
 }
 
 #top-bar .navbar-brand .npd-brand-logo {
-  height: 36px;
+  height: 34px;
   width: auto;
   display: inline-block;
   filter: none !important;
-}
-
-#top-bar .navbar-brand .npd-logo-dark {
-  display: none;
-}
-
-[data-theme="dark"] #top-bar .navbar-brand .npd-logo-light {
-  display: none;
-}
-
-[data-theme="dark"] #top-bar .navbar-brand .npd-logo-dark {
-  display: inline-block;
 }
 
 #top-bar .navbar-toggler {
