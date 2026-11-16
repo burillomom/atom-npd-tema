@@ -322,6 +322,14 @@ ul.actions,
   color: var(--grey) !important;
 }
 
+/* Carrossel de imagens na página de descrição */
+.carousel-caption,
+#image-carousel .text-white,
+.carousel .slick-prev::before,
+.carousel .slick-next::before {
+  color: var(--ink) !important;
+}
+
 .breadcrumb-item + .breadcrumb-item::before,
 .breadcrumb-item.active {
   color: var(--grey);

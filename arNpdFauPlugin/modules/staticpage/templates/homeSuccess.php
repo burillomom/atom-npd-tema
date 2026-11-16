@@ -51,18 +51,17 @@
           }
       }
 
-      // Contagem de filhos diretos com nível Série
-      if ($seriesTerm) {
-          $seriesCount = (int) QubitPdo::fetchColumn(
-              'SELECT COUNT(*) FROM information_object WHERE parent_id = ? AND level_of_description_id = ?',
-              [$item->id, $seriesTerm->id]
-          );
-      } else {
-          $seriesCount = (int) QubitPdo::fetchColumn(
-              'SELECT COUNT(*) FROM information_object WHERE parent_id = ?',
-              [$item->id]
-          );
-      }
+      // Contagem de filhos diretos com nível Série (em qualquer idioma: Series / Série)
+      $seriesCount = (int) QubitPdo::fetchColumn(
+          'SELECT COUNT(DISTINCT io.id)
+             FROM information_object io
+             INNER JOIN term t ON io.level_of_description_id = t.id
+             INNER JOIN term_i18n ti ON ti.id = t.id
+            WHERE io.parent_id = ?
+              AND t.taxonomy_id = ?
+              AND ti.name IN (?, ?)',
+          [$item->id, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID, 'Series', 'Série']
+      );
       $totalSeries += $seriesCount;
 
       // Miniatura do objeto digital (se existir)
