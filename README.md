@@ -1,105 +1,53 @@
 # Tema NPD · FAU UFRJ para AtoM (`arNpdFauPlugin`)
 
-Protótipo e base de código do tema minimalista (inspirado no design gráfico suíço) para o acervo do **Núcleo de Pesquisa e Documentação da Faculdade de Arquitetura e Urbanismo da UFRJ (NPD · FAU UFRJ)** no [AtoM (Access to Memory)](https://github.com/artefactual/atom).
+Tema minimalista (inspirado no design gráfico suíço) para o acervo do **Núcleo de Pesquisa e Documentação da Faculdade de Arquitetura e Urbanismo da UFRJ (NPD · FAU UFRJ)** no [AtoM (Access to Memory)](https://github.com/artefactual/atom).
 
 ---
 
-## 1. Visualizando o protótipo estático (sem o AtoM)
+## O que tem neste repositório
 
-Basta abrir [`index.html`](index.html) em qualquer navegador:
-
-- **Modo Claro / Noturno**: botão **Noturno / Claro** na barra superior (ou `?theme=dark` / `?theme=light` na URL).
-- **Ordem sem hierarquia**: por padrão os fundos são embaralhados a cada visita (**Aleatória**), com opção de alternar para **A–Z** ou **Data** com animação FLIP suave.
-- **Visualização em Grade ou Lista**: alternância instantânea entre grade de cartões (proporção natural alinhada pela base) e tabela técnica.
-- **Sem animações (captura/acessibilidade)**: adicione `?static` na URL ou ative `prefers-reduced-motion` no sistema.
+1. **Protótipo estático** (`index.html`, `css/theme.css`, `js/theme.js`, `js/data.js`, `img/`):
+   Para abrir direto no navegador sem precisar do AtoM instalado.
+2. **Plugin instalável no AtoM 2.7+** (`arNpdFauPlugin/`):
+   Baseado diretamente no tema padrão **`arDominionB5Plugin`**, pronto para rodar em **todas as páginas** do AtoM (página inicial, descrições arquivísticas, busca avançada, entidades custodiadoras, assuntos, locais, login e administração), com modo claro e modo noturno.
 
 ---
 
-## 2. Estrutura do repositório
+## Como testar no servidor AtoM sem quebrar o sistema
 
-```text
-.
-├── index.html          # Protótipo estático completo da página inicial
-├── css/
-│   └── theme.css       # Folha de estilos (variáveis CSS, modo claro/noturno, grid e responsivo)
-├── js/
-│   ├── data.js         # Dados de demonstração dos fundos (arquitetos e escritórios)
-│   └── theme.js        # Ordenação aleatória/A-Z/Data (FLIP), filtro, reveal e modo noturno
-└── img/                # Miniaturas de demonstração (fotografias e pranchas arquitetônicas)
-```
+O plugin **não altera nenhum arquivo do core nem do `arDominionB5Plugin`**, e **não precisa compilar Webpack/Node no servidor**. Ele estende `arDominionB5PluginConfiguration` e injeta os estilos e scripts por cima do tema padrão.
 
----
-
-## 3. Como transformar em plugin de tema no servidor com AtoM (2.7 / 2.8+)
-
-No servidor onde o AtoM estiver instalado (ex.: `/usr/share/nginx/atom`), crie o plugin `arNpdFauPlugin` estendendo o `arDominionB5Plugin`:
-
-### 3.1. Estrutura de pastas do plugin no AtoM
-
-```text
-plugins/arNpdFauPlugin/
-├── config/
-│   └── arNpdFauPluginConfiguration.class.php
-├── css/
-│   └── main.scss               # Conteúdo de css/theme.css importado após o Dominion B5
-├── js/
-│   └── theme.js                # Script de ordenação FLIP, filtro e modo noturno
-├── modules/
-│   └── staticpage/
-│       ├── actions/
-│       │   └── homeAction.class.php
-│       └── templates/
-│           └── homeSuccess.php # Marcação de #wrapper / #main-column do index.html
-└── templates/
-    ├── _header.php             # Marcação do #top-bar do index.html
-    └── _footer.php             # Marcação do #footer do index.html
-```
-
-### 3.2. Configuração do plugin (`config/arNpdFauPluginConfiguration.class.php`)
-
-```php
-<?php
-
-class arNpdFauPluginConfiguration extends sfPluginConfiguration
-{
-    public static
-        $summary = 'Tema minimalista do NPD FAU UFRJ para o AtoM, baseado no arDominionB5Plugin.',
-        $version = '0.1.0';
-
-    public function contextLoadFactories(sfEvent $event)
-    {
-        $context = $event->getSubject();
-        $context->response->addStylesheet('/plugins/arNpdFauPlugin/css/theme.css', 'last');
-        $context->response->addJavascript('/plugins/arNpdFauPlugin/js/theme.js', 'last');
-    }
-
-    public function initialize()
-    {
-        $this->dispatcher->connect('context.load_factories', [$this, 'contextLoadFactories']);
-        $decoratorDirs = sfConfig::get('sf_decorator_dirs');
-        $decoratorDirs[] = $this->rootDir . '/templates';
-        sfConfig::set('sf_decorator_dirs', $decoratorDirs);
-
-        $moduleDirs = sfConfig::get('sf_module_dirs');
-        $moduleDirs[$this->rootDir . '/modules'] = false;
-        sfConfig::set('sf_module_dirs', $moduleDirs);
-    }
-}
-```
-
-### 3.3. Buscando os Fundos reais no `homeSuccess.php`
-
-No AtoM, cada cartão `.fonds-card` deve ser renderizado no servidor consultando as descrições arquivísticas de nível superior (`parentId == QubitInformationObject::ROOT_ID`):
-
-- **Código de referência (`ref`)**: `$item->identifier` ou `$item->referenceCode`
-- **Título (`title`)**: `$item->getTitle(['cultureFallback' => true])`
-- **Datas (`dates`)**: datas de produção concatenadas via `$item->getDates()`
-- **Total de séries (`series`)**: contagem de filhos diretos (`parentId == $item->id`) cujo `levelOfDescriptionId` corresponde ao termo *"Série"*
-- **Miniatura (`image`)**: `$item->getDigitalObject()` (representação `QubitTerm::REFERENCE_ID` ou `QubitTerm::THUMBNAIL_ID`)
-- **Link do cartão**: `url_for([$item, 'module' => 'informationobject'])`
-
-Depois de ativar o tema em **Admin > Themes** (ou `php symfony tools:theme`), limpe o cache do AtoM:
+### Passo 1 — Clonar e copiar/linkar o plugin na pasta `plugins/` do AtoM
 
 ```bash
-php symfony cc
+cd /tmp
+git clone https://github.com/burillomom/atom-npd-tema.git
+
+# Copie a pasta arNpdFauPlugin para dentro dos plugins do seu AtoM
+# (ajuste o caminho se o seu AtoM estiver em outro diretório)
+sudo cp -r /tmp/atom-npd-tema/arNpdFauPlugin /usr/share/nginx/atom/plugins/
+```
+
+### Passo 2 — Limpar o cache e ativar o tema
+
+```bash
+cd /usr/share/nginx/atom
+sudo -u www-data php symfony cc
+```
+
+Depois acesse **Admin > Themes** no navegador e selecione **arNpdFauPlugin** (ou via CLI: `sudo -u www-data php symfony tools:theme --enable=arNpdFauPlugin` ou habilitando na interface administrativa).
+
+> **Observação sobre Content Security Policy (CSP):**
+> Como `atom-npd.css` importa a fonte *Inter* do Google Fonts (`fonts.googleapis.com`), caso seu servidor tenha um CSP restrito no Nginx, o navegador usará automaticamente `Helvetica Neue` / `Helvetica` / `Arial` como fallback sem quebrar nada.
+
+### Passo 3 — Como reverter imediatamente (se precisar voltar atrás)
+
+Se quiser voltar para o tema padrão a qualquer momento:
+- Pelo painel: **Admin > Themes** → ative **Dominion B5** (`arDominionB5Plugin`).
+- Ou pelo terminal:
+
+```bash
+cd /usr/share/nginx/atom
+sudo rm -rf plugins/arNpdFauPlugin
+sudo -u www-data php symfony cc
 ```
