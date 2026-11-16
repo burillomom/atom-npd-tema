@@ -21,20 +21,7 @@
   var initDark = urlDark ? true : urlLight ? false : (savedTheme ? savedTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches);
   setTheme(initDark);
 
-  // Substitui a logo padrão do AtoM somente pelo ícone do NPD (cor fixa em ambos os modos)
-  var brand = document.querySelector("#top-bar .navbar-brand");
-  if (brand && !brand.querySelector(".npd-brand-logo")) {
-    var oldImg = brand.querySelector("img");
-    if (oldImg) oldImg.remove();
-    var lImg = document.createElement("img");
-    lImg.src = "/plugins/arNpdFauPlugin/images/logo-npd.png";
-    lImg.alt = "NPD · FAU UFRJ";
-    lImg.className = "npd-brand-logo my-1 me-3";
-    brand.insertBefore(lImg, brand.firstChild);
-  }
-
-  // Insere o botão discretamente na barra nativa do AtoM (#top-bar)
-  var navContainer = document.querySelector("#top-bar .navbar-nav");
+  var navContainer = document.getElementById("npd-right-nav") || document.querySelector("#top-bar .navbar-nav");
   if (navContainer && !document.getElementById("npd-theme-toggle")) {
     var li = document.createElement("li");
     li.className = "nav-item d-flex align-items-center";
@@ -61,31 +48,84 @@
     onScroll();
   }
 
-  /* ---------- 3. Grade de Fundos na página inicial ---------- */
+  /* ---------- 3. Fundos na Home: Prateleira (principal) + Grade (secundária) ---------- */
+  var shelfWrap = document.getElementById("shelves-wrap");
   var grid = document.getElementById("fonds-grid");
-  if (!grid) return;
+  if (!shelfWrap || !grid) return;
 
   var countEl = document.getElementById("fonds-count");
   var emptyEl = document.getElementById("fonds-empty");
   var filterEl = document.getElementById("fonds-filter");
+
+  var boxes = Array.prototype.slice.call(shelfWrap.querySelectorAll(".shelf-box"));
   var cards = Array.prototype.slice.call(grid.querySelectorAll(".fonds-card"));
 
   function normalize(s) {
     return (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  function shuffleIndices(n) {
+    var arr = [];
+    for (var i = 0; i < n; i++) arr.push(i);
+    for (var j = n - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1));
+      var tmp = arr[j]; arr[j] = arr[k]; arr[k] = tmp;
     }
-    return a;
+    return arr;
   }
 
-  var state = { sort: "random", query: "" };
+  function getPerShelf() {
+    var w = shelfWrap.clientWidth || window.innerWidth;
+    if (w <= 720) return 999;
+    return Math.max(4, Math.floor((w - 260) / 86));
+  }
 
-  function apply(animate) {
+  var state = { sort: "random", view: "shelf", query: "", order: [] };
+
+  function computeOrder() {
+    var n = boxes.length;
+    var indices = [];
+    for (var i = 0; i < n; i++) indices.push(i);
+
+    if (state.sort === "alpha") {
+      indices.sort(function (ia, ib) {
+        return (boxes[ia].dataset.title || "").localeCompare(boxes[ib].dataset.title || "", "pt");
+      });
+    } else if (state.sort === "date") {
+      indices.sort(function (ia, ib) {
+        return (parseInt(boxes[ia].dataset.start, 10) || 9999) - (parseInt(boxes[ib].dataset.start, 10) || 9999);
+      });
+    } else {
+      indices = shuffleIndices(n);
+    }
+    state.order = indices;
+  }
+
+  function matchesEl(el) {
+    if (!state.query) return true;
+    var hay = normalize((el.dataset.title || "") + " " + (el.dataset.ref || "") + " " + (el.dataset.dates || ""));
+    return hay.indexOf(state.query) !== -1;
+  }
+
+  function renderShelf() {
+    var filtered = [];
+    state.order.forEach(function (idx) {
+      var box = boxes[idx];
+      if (box && matchesEl(box)) filtered.push(box);
+    });
+
+    shelfWrap.innerHTML = "";
+    var perShelf = getPerShelf();
+    for (var i = 0; i < filtered.length; i += perShelf) {
+      var shelf = document.createElement("div");
+      shelf.className = "shelf";
+      filtered.slice(i, i + perShelf).forEach(function (el) { shelf.appendChild(el); });
+      shelfWrap.appendChild(shelf);
+    }
+    return filtered.length;
+  }
+
+  function renderGrid(animate) {
     var first = new Map();
     if (animate && !reduceMotion) {
       cards.forEach(function (el) {
@@ -93,67 +133,56 @@
       });
     }
 
-    var ordered = cards.slice();
-    if (state.sort === "alpha") {
-      ordered.sort(function (a, b) {
-        return (a.dataset.title || "").localeCompare(b.dataset.title || "", "pt");
-      });
-    } else if (state.sort === "date") {
-      ordered.sort(function (a, b) {
-        return (parseInt(a.dataset.start, 10) || 9999) - (parseInt(b.dataset.start, 10) || 9999);
-      });
-    } else {
-      ordered = shuffle(ordered);
-    }
-
     var visible = 0;
-    ordered.forEach(function (el) {
-      var hay = normalize((el.dataset.title || "") + " " + (el.dataset.ref || "") + " " + (el.dataset.dates || ""));
-      var show = !state.query || hay.indexOf(state.query) !== -1;
+    state.order.forEach(function (idx) {
+      var el = cards[idx];
+      if (!el) return;
+      var show = matchesEl(el);
       el.hidden = !show;
+      el.classList.add("is-visible");
       grid.appendChild(el);
       if (show) visible++;
     });
 
+    if (animate && !reduceMotion) {
+      cards.forEach(function (el) {
+        if (el.hidden) return;
+        var last = el.getBoundingClientRect();
+        var prev = first.get(el);
+        if (prev) {
+          var dx = prev.left - last.left;
+          var dy = prev.top - last.top;
+          if (dx || dy) {
+            el.animate(
+              [{ transform: "translate(" + dx + "px," + dy + "px)" }, { transform: "none" }],
+              { duration: 500, easing: "cubic-bezier(.2,.7,.2,1)" }
+            );
+          }
+        }
+      });
+    }
+    return visible;
+  }
+
+  function render(animate) {
+    shelfWrap.hidden = state.view !== "shelf";
+    grid.hidden = state.view !== "grid";
+
+    var visible = state.view === "shelf" ? renderShelf() : renderGrid(animate);
     if (countEl) countEl.textContent = visible + (visible === 1 ? " fundo" : " fundos");
     if (emptyEl) emptyEl.hidden = visible !== 0;
+  }
 
-    if (!animate || reduceMotion) return;
-    ordered.forEach(function (el) {
-      if (el.hidden) return;
-      var last = el.getBoundingClientRect();
-      var prev = first.get(el);
-      if (prev) {
-        var dx = prev.left - last.left;
-        var dy = prev.top - last.top;
-        if (dx || dy) {
-          el.animate(
-            [{ transform: "translate(" + dx + "px," + dy + "px)" }, { transform: "none" }],
-            { duration: 520, easing: "cubic-bezier(.2,.7,.2,1)" }
-          );
-        }
+  // Em telas touch, primeiro toque abre a caixa na prateleira
+  boxes.forEach(function (box) {
+    box.addEventListener("click", function (e) {
+      if (window.matchMedia("(hover: none)").matches && !box.classList.contains("is-open")) {
+        e.preventDefault();
+        boxes.forEach(function (b) { b.classList.remove("is-open"); });
+        box.classList.add("is-open");
       }
     });
-  }
-
-  // Reveal escalonado ao rolar
-  if (!reduceMotion && "IntersectionObserver" in window) {
-    grid.classList.add("reveal");
-    var batch = 0, timer;
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        e.target.style.transitionDelay = (Math.min(batch++, 8) * 55) + "ms";
-        e.target.classList.add("is-visible");
-        io.unobserve(e.target);
-        clearTimeout(timer);
-        timer = setTimeout(function () { batch = 0; }, 120);
-      });
-    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.1 });
-    cards.forEach(function (el) { io.observe(el); });
-  } else {
-    cards.forEach(function (el) { el.classList.add("is-visible"); });
-  }
+  });
 
   document.querySelectorAll("[data-sort]").forEach(function (btn) {
     btn.addEventListener("click", function () {
@@ -161,21 +190,18 @@
       document.querySelectorAll("[data-sort]").forEach(function (b) {
         b.setAttribute("aria-pressed", String(b === btn));
       });
-      apply(true);
+      computeOrder();
+      render(true);
     });
   });
 
   document.querySelectorAll("[data-view]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var list = btn.dataset.view === "list";
+      state.view = btn.dataset.view;
       document.querySelectorAll("[data-view]").forEach(function (b) {
         b.setAttribute("aria-pressed", String(b === btn));
       });
-      var go = function () {
-        grid.classList.toggle("is-list", list);
-        var section = document.getElementById("fonds");
-        if (section) section.classList.toggle("is-list-mode", list);
-      };
+      var go = function () { render(false); };
       if (document.startViewTransition && !reduceMotion) document.startViewTransition(go); else go();
     });
   });
@@ -186,10 +212,18 @@
       clearTimeout(debounce);
       debounce = setTimeout(function () {
         state.query = normalize(filterEl.value.trim());
-        apply(true);
+        render(true);
       }, 120);
     });
   }
 
-  apply(false);
+  var resizeTimer;
+  window.addEventListener("resize", function () {
+    if (state.view !== "shelf") return;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { render(false); }, 180);
+  });
+
+  computeOrder();
+  render(false);
 })();

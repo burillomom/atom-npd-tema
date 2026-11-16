@@ -1,7 +1,6 @@
 <?php decorate_with('layout'); ?>
 
 <?php
-  // Busca os fundos de nível superior (parentId = ROOT_ID) diretamente do AtoM
   $criteria = new Criteria();
   $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
   if (!$sf_user->isAuthenticated()) {
@@ -15,12 +14,6 @@
   }
   $topFonds = QubitInformationObject::get($criteria);
 
-  // Termo "Series" na taxonomia de Níveis de Descrição (34) para contar séries filhas
-  $seriesCriteria = new Criteria();
-  $seriesCriteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
-  $seriesCriteria->addJoin(QubitTerm::ID, QubitTermI18n::ID, Criteria::INNER_JOIN);
-  $seriesCriteria->add(QubitTermI18n::NAME, ['Series', 'Série'], Criteria::IN);
-  $seriesTerm = QubitTerm::getOne($seriesCriteria);
   $totalSeries = 0;
   $minYear = null;
   $maxYear = null;
@@ -30,7 +23,6 @@
       $title = $item->getTitle(['cultureFallback' => true]);
       $ref = $item->identifier ?: $item->referenceCode;
 
-      // Datas de criação/produção
       $datesText = '';
       $startYear = '';
       foreach ($item->getDates() as $d) {
@@ -51,7 +43,6 @@
           }
       }
 
-      // Contagem de filhos diretos com nível Série (em qualquer idioma: Series / Série)
       $seriesCount = (int) QubitPdo::fetchColumn(
           'SELECT COUNT(DISTINCT io.id)
              FROM information_object io
@@ -64,7 +55,6 @@
       );
       $totalSeries += $seriesCount;
 
-      // Miniatura do objeto digital (se existir)
       $thumbPath = null;
       if ($do = $item->getDigitalObject()) {
           $rep = $do->getRepresentationByUsage(QubitTerm::REFERENCE_ID)
@@ -81,7 +71,7 @@
           'dates' => $datesText ?: 's.d.',
           'start' => $startYear ?: 9999,
           'series' => $seriesCount,
-          'extent' => $item->getExtentAndMedium(['cultureFallback' => true]),
+          'extent' => $item->getExtentAndMedium(['cultureFallback' => true]) ?: '—',
           'thumb' => $thumbPath,
       ];
   }
@@ -89,16 +79,16 @@
   $rangeText = ($minYear && $maxYear) ? ($minYear.'–'.$maxYear) : '';
 ?>
 
-<div class="npd-home py-4">
+<div class="npd-home">
   <section class="intro">
     <div class="intro__title">
       <p class="eyebrow">Faculdade de Arquitetura e Urbanismo<br>Universidade Federal do Rio de Janeiro</p>
       <h1>Núcleo de Pesquisa<br>e Documentação</h1>
     </div>
     <div class="intro__text">
-      <p class="lead">
+      <div class="lead">
         <?php echo render_value_html($sf_data->getRaw('content')); ?>
-      </p>
+      </div>
       <ul class="intro__links">
         <li><?php echo link_to(__('Sobre o NPD'), ['module' => 'staticpage', 'slug' => 'about']); ?></li>
         <li><?php echo link_to(__('Descrições arquivísticas'), ['module' => 'informationobject', 'action' => 'browse']); ?></li>
@@ -136,17 +126,55 @@
           <button data-sort="date" aria-pressed="false" type="button"><?php echo __('Data'); ?></button>
         </div>
         <div class="text-toggle" role="group" aria-label="<?php echo __('Visualização'); ?>">
-          <button data-view="grid" aria-pressed="true" type="button"><?php echo __('Grade'); ?></button>
-          <button data-view="list" aria-pressed="false" type="button"><?php echo __('Lista'); ?></button>
+          <button data-view="shelf" aria-pressed="true" type="button"><?php echo __('Prateleira'); ?></button>
+          <button data-view="grid" aria-pressed="false" type="button"><?php echo __('Grade'); ?></button>
         </div>
       </div>
     </div>
 
-    <div class="list-head" aria-hidden="true">
-      <span></span><span><?php echo __('Fundo'); ?></span><span><?php echo __('Código'); ?></span><span><?php echo __('Datas'); ?></span><span><?php echo __('Séries'); ?></span><span><?php echo __('Extensão'); ?></span>
+    <!-- Visão 1 (Principal): Prateleira de Caixas-Arquivo -->
+    <div id="shelves-wrap" class="shelves-wrap" aria-live="polite">
+      <?php foreach ($fondsData as $idx => $f) {
+          $heightClass = $idx % 3 === 0 ? 'is-tall' : ($idx % 3 === 2 ? 'is-short' : '');
+      ?>
+        <div class="shelf-box <?php echo $heightClass; ?>"
+             data-title="<?php echo esc_specialchars($f['title']); ?>"
+             data-ref="<?php echo esc_specialchars($f['ref']); ?>"
+             data-dates="<?php echo esc_specialchars($f['dates']); ?>"
+             data-start="<?php echo esc_specialchars($f['start']); ?>">
+          <a class="shelf-box__link"
+             href="<?php echo url_for([$f['item'], 'module' => 'informationobject']); ?>"
+             title="<?php echo esc_specialchars($f['title']); ?>">
+            <div class="shelf-box__spine">
+              <span class="shelf-box__hole" aria-hidden="true"></span>
+              <span class="shelf-box__spine-name"><?php echo esc_specialchars($f['title']); ?></span>
+              <span class="shelf-box__spine-tag"><?php echo esc_specialchars($f['start'] !== 9999 ? $f['start'] : ''); ?></span>
+            </div>
+            <div class="shelf-box__panel">
+              <figure class="shelf-box__media">
+                <?php if ($f['thumb']) { ?>
+                  <img src="<?php echo $f['thumb']; ?>" alt="<?php echo esc_specialchars($f['title']); ?>" loading="lazy">
+                <?php } else { ?>
+                  <div class="shelf-box__noimg"><?php echo esc_specialchars($f['ref'] ?: __('Fundo')); ?></div>
+                <?php } ?>
+              </figure>
+              <div>
+                <p class="shelf-box__ref"><?php echo esc_specialchars($f['ref']); ?></p>
+                <h3 class="shelf-box__title"><?php echo esc_specialchars($f['title']); ?></h3>
+                <dl class="shelf-box__meta">
+                  <div><dt><?php echo __('Datas'); ?></dt><dd><?php echo esc_specialchars($f['dates']); ?></dd></div>
+                  <div><dt><?php echo __('Séries'); ?></dt><dd><?php echo $f['series']; ?></dd></div>
+                  <div><dt><?php echo __('Extensão'); ?></dt><dd><?php echo esc_specialchars($f['extent']); ?></dd></div>
+                </dl>
+              </div>
+            </div>
+          </a>
+        </div>
+      <?php } ?>
     </div>
 
-    <ul id="fonds-grid" class="fonds-grid">
+    <!-- Visão 2: Grade de Cartões -->
+    <ul id="fonds-grid" class="fonds-grid" hidden>
       <?php foreach ($fondsData as $f) { ?>
         <li class="fonds-card"
             data-title="<?php echo esc_specialchars($f['title']); ?>"
@@ -165,10 +193,6 @@
             </figure>
             <p class="fonds-card__title"><span><?php echo esc_specialchars($f['title']); ?></span></p>
             <p class="fonds-card__sub"><?php echo esc_specialchars($f['dates']); ?> · <?php echo $f['series']; ?> <?php echo __('séries'); ?></p>
-            <span class="fonds-card__cell muted-cell"><?php echo esc_specialchars($f['ref']); ?></span>
-            <span class="fonds-card__cell c-dates"><?php echo esc_specialchars($f['dates']); ?></span>
-            <span class="fonds-card__cell"><?php echo $f['series']; ?></span>
-            <span class="fonds-card__cell muted-cell"><?php echo esc_specialchars($f['extent']); ?></span>
           </a>
         </li>
       <?php } ?>
