@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NPD FAU UFRJ — Prateleira de Fundos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/shelf.css">
+</head>
+<body class="staticpage index home">
+
+  <header id="top-bar" role="navigation" aria-label="Navegação principal">
+    <div class="container top-bar__inner">
+      <a id="logo" href="index.html" title="Início">
+        <img class="brand-logo logo-light" src="img/logo-npd.png" alt="NPD — Núcleo de Pesquisa e Documentação">
+        <img class="brand-logo logo-dark" src="img/logo-npd-dark.png" alt="NPD — Núcleo de Pesquisa e Documentação">
+        <span class="site-sub">FAU UFRJ</span>
+      </a>
+
+      <button id="menu-toggle" class="nav-link" aria-expanded="false" aria-controls="main-nav">Menu</button>
+
+      <div id="main-nav" class="main-nav">
+        <ul class="nav-list">
+          <li><a class="nav-link is-active" href="#">Fundos</a></li>
+          <li><a class="nav-link" href="#" data-atom="/informationobject/browse">Descrições arquivísticas</a></li>
+          <li><a class="nav-link" href="#" data-atom="/repository/browse">Entidade custodiadora</a></li>
+          <li><a class="nav-link" href="#" data-atom="/taxonomy/index/id/35">Assuntos</a></li>
+          <li><a class="nav-link" href="#" data-atom="/taxonomy/index/id/42">Locais</a></li>
+          <li id="browse-menu">
+            <button class="nav-link muted" aria-haspopup="true" aria-expanded="false">Mais</button>
+            <ul class="dropdown" role="menu">
+              <li><a href="#">Registros de autoridade</a></li>
+              <li><a href="#">Funções</a></li>
+              <li><a href="#">Objetos digitais</a></li>
+              <li><a href="index.html">Ver tema em grade</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="nav-tools">
+          <form id="search-box" role="search" onsubmit="return false">
+            <input type="search" placeholder="Pesquisar" aria-label="Pesquisar no acervo">
+            <a href="#" class="adv-search" data-atom="/informationobject/browse?showAdvanced=1">Avançada</a>
+          </form>
+          <div id="user-menu">
+            <button id="theme-toggle" class="nav-link muted" type="button" aria-label="Alternar modo noturno">Noturno</button>
+            <a href="#" class="nav-link muted">Entrar</a>
+            <a href="#" class="nav-link muted">PT</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="wrapper" class="container">
+    <main id="main-column">
+
+      <section class="intro">
+        <div class="intro__title">
+          <p class="eyebrow">Faculdade de Arquitetura e Urbanismo<br>Universidade Federal do Rio de Janeiro</p>
+          <h1>Núcleo de Pesquisa<br>e Documentação</h1>
+        </div>
+        <div class="intro__text">
+          <p class="lead">O NPD reúne, preserva e torna acessíveis os arquivos de arquitetos e escritórios que marcaram a arquitetura e o urbanismo no Brasil, apoiando o ensino e a pesquisa na FAU&nbsp;UFRJ.</p>
+          <ul class="intro__links">
+            <li><a class="nav-link" href="#">Sobre o NPD</a></li>
+            <li><a class="nav-link" href="#">Como consultar o acervo</a></li>
+            <li><a class="nav-link" href="#">Contato</a></li>
+          </ul>
+        </div>
+        <dl class="facts">
+          <div><dt>Fundos</dt><dd id="fact-count">—</dd></div>
+          <div><dt>Séries</dt><dd id="fact-series">—</dd></div>
+          <div><dt>Período</dt><dd id="fact-range">—</dd></div>
+        </dl>
+      </section>
+
+      <section id="fonds" aria-labelledby="fonds-title">
+        <h2 id="fonds-title" class="section-title">Fundos <span id="fonds-range" class="range"></span></h2>
+        <div class="toolbar">
+          <label class="filter">
+            <span class="visually-hidden">Filtrar fundos</span>
+            <input id="fonds-filter" type="search" placeholder="Filtrar fundos" autocomplete="off">
+          </label>
+
+          <div class="toolbar__right">
+            <span id="fonds-count" class="count"></span>
+            <div class="text-toggle" role="group" aria-label="Ordenação">
+              <button data-sort="random" aria-pressed="true" title="Ordem aleatória — clique novamente para reembaralhar">Aleatória</button>
+              <button data-sort="alpha" aria-pressed="false">A–Z</button>
+              <button data-sort="date" aria-pressed="false">Data</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="shelves-wrap" class="shelves-wrap" aria-live="polite"></div>
+        <p id="fonds-empty" class="empty" hidden>Nenhum fundo encontrado.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer id="footer">
+    <div class="container footer__inner">
+      <span>NPD · Faculdade de Arquitetura e Urbanismo · UFRJ</span>
+      <span>Av. Pedro Calmon, 550 — Prédio da Reitoria, Ilha do Fundão, Rio de Janeiro</span>
+      <span class="muted"><a href="https://www.accesstomemory.org" target="_blank" rel="noopener">AtoM</a></span>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/shelf.js"></script>
+</body>
+</html>

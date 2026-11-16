@@ -1,0 +1,505 @@
+/* ==========================================================================
+   arNpdFauPlugin — Tema NPD · FAU UFRJ para todas as páginas do AtoM
+   Estende o arDominionB5Plugin (Bootstrap 5) mantendo 100% da estrutura e
+   funcionalidades nativas (busca, facetas, treeview, formulários, admin).
+   ========================================================================== */
+
+:root {
+  --bg: #ecece7;
+  --surface: #f5f5f1;
+  --ink: #111111;
+  --grey: #6e6e69;
+  --hair: #d2d2cc;
+  --row-hover: rgba(0, 0, 0, .03);
+
+  --font: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --gap-x: 24px;
+
+  /* Mapeamento para variáveis nativas do Bootstrap 5 / Dominion B5 */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--ink);
+  --bs-body-font-family: var(--font);
+  --bs-heading-color: var(--ink);
+  --bs-link-color: var(--ink);
+  --bs-link-hover-color: var(--ink);
+  --bs-border-color: var(--hair);
+  --bs-secondary-color: var(--grey);
+  --bs-tertiary-bg: var(--surface);
+  --bs-secondary-bg: var(--surface);
+  --bs-card-bg: transparent;
+  --bs-card-border-color: var(--hair);
+  --bs-list-group-bg: transparent;
+  --bs-list-group-color: var(--ink);
+  --bs-list-group-border-color: var(--hair);
+  --bs-list-group-action-hover-bg: var(--row-hover);
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--ink);
+  --bs-table-border-color: var(--hair);
+}
+
+[data-theme="dark"] {
+  --bg: #121211;
+  --surface: #1b1b19;
+  --ink: #ededeb;
+  --grey: #8e8e88;
+  --hair: #2a2a28;
+  --row-hover: rgba(255, 255, 255, .04);
+
+  color-scheme: dark;
+
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--ink);
+  --bs-heading-color: var(--ink);
+  --bs-link-color: var(--ink);
+  --bs-link-hover-color: var(--ink);
+  --bs-border-color: var(--hair);
+  --bs-secondary-color: var(--grey);
+  --bs-tertiary-bg: var(--surface);
+  --bs-secondary-bg: var(--surface);
+  --bs-card-bg: var(--surface);
+  --bs-card-border-color: var(--hair);
+  --bs-list-group-bg: transparent;
+  --bs-list-group-color: var(--ink);
+  --bs-list-group-border-color: var(--hair);
+  --bs-list-group-action-hover-bg: var(--row-hover);
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--ink);
+  --bs-table-border-color: var(--hair);
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg) !important;
+  color: var(--ink) !important;
+  letter-spacing: -.008em;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+  transition: background-color .3s var(--ease), color .3s var(--ease);
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+/* ---------- Top bar nativa do AtoM (#top-bar) ---------- */
+header#top-bar,
+#top-bar.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  border-bottom: 1px solid var(--hair) !important;
+  transition: border-color .25s var(--ease), background-color .3s var(--ease);
+}
+
+#top-bar.is-scrolled {
+  border-bottom-color: var(--ink) !important;
+}
+
+#top-bar .navbar-brand,
+#top-bar .nav-link,
+#top-bar .btn-link,
+#top-bar button,
+#top-bar a,
+#top-bar i,
+#top-bar svg {
+  color: var(--ink) !important;
+  font-size: 13.5px;
+}
+
+#top-bar .btn-dark,
+#top-bar .btn-secondary,
+#top-bar .atom-btn-secondary,
+#top-bar .dropdown-toggle {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: var(--ink) !important;
+  box-shadow: none !important;
+}
+
+#top-bar .btn-dark:hover,
+#top-bar .btn-secondary:hover,
+#top-bar .dropdown-toggle:hover {
+  background-color: var(--row-hover) !important;
+}
+
+#top-bar .navbar-brand {
+  font-weight: 600;
+  letter-spacing: -.015em;
+}
+
+#top-bar .navbar-brand .npd-brand-logo {
+  height: 36px;
+  width: auto;
+  display: inline-block;
+  filter: none !important;
+}
+
+#top-bar .navbar-brand .npd-logo-dark {
+  display: none;
+}
+
+[data-theme="dark"] #top-bar .navbar-brand .npd-logo-light {
+  display: none;
+}
+
+[data-theme="dark"] #top-bar .navbar-brand .npd-logo-dark {
+  display: inline-block;
+}
+
+#top-bar .navbar-toggler {
+  border-color: var(--hair);
+  color: var(--ink);
+}
+
+#top-bar .dropdown-menu {
+  background-color: var(--bg);
+  border: 1px solid var(--hair);
+  border-top: 1px solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#top-bar .dropdown-item {
+  color: var(--grey);
+  font-size: 13.5px;
+}
+
+#top-bar .dropdown-item:hover,
+#top-bar .dropdown-item:focus {
+  background-color: var(--row-hover);
+  color: var(--ink);
+}
+
+/* Campo de busca nativo do AtoM */
+#top-bar #search-form input[type="text"],
+#top-bar #search-form input[type="search"],
+#top-bar .form-control {
+  background: transparent !important;
+  color: var(--ink) !important;
+  border: 0;
+  border-bottom: 1px solid var(--hair);
+  border-radius: 0;
+  box-shadow: none !important;
+  font-size: 13.5px;
+}
+
+#top-bar #search-form input:focus {
+  border-bottom-color: var(--ink);
+}
+
+#top-bar .btn,
+#top-bar button[type="submit"] {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink);
+}
+
+/* Barra de descrição do site abaixo do header, quando ativada no Admin */
+.bg-secondary {
+  background-color: var(--surface) !important;
+  color: var(--grey) !important;
+  border-bottom: 1px solid var(--hair);
+}
+
+/* ---------- Botão Noturno / Claro ---------- */
+#npd-theme-toggle {
+  background: none;
+  border: 0;
+  padding: .5rem;
+  color: var(--grey) !important;
+  cursor: pointer;
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+#npd-theme-toggle:hover {
+  color: var(--ink) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Tipografia e componentes nas páginas internas do AtoM ---------- */
+h1, .h1, h2, .h2, h3, .h3 {
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+.card,
+.accordion-item,
+.modal-content {
+  background-color: var(--surface);
+  border-color: var(--hair);
+  border-radius: 0;
+}
+
+.accordion-button {
+  background-color: var(--surface);
+  color: var(--ink);
+  box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--row-hover);
+  color: var(--ink);
+}
+
+.form-control,
+.form-select {
+  background-color: var(--surface);
+  color: var(--ink);
+  border-color: var(--hair);
+  border-radius: 0;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--surface);
+  color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: none;
+}
+
+.btn,
+[class*="atom-btn-"] {
+  border-radius: 0 !important;
+}
+
+.atom-btn-outline-light,
+.btn-outline-secondary {
+  color: var(--ink) !important;
+  border-color: var(--hair) !important;
+  background: transparent !important;
+}
+
+.atom-btn-outline-light:hover,
+.btn-outline-secondary:hover {
+  border-color: var(--ink) !important;
+  background-color: var(--row-hover) !important;
+}
+
+.atom-btn-white {
+  background-color: var(--ink) !important;
+  color: var(--bg) !important;
+  border-color: var(--ink) !important;
+}
+
+/* Barra de ações (ex: botão Log in, Edit, Delete nas páginas internas) */
+.actions,
+section.actions,
+ul.actions,
+.actions.card {
+  background-color: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--hair) !important;
+  padding: 16px 0 !important;
+  border-radius: 0 !important;
+}
+
+.actions .btn,
+.actions .atom-btn-outline-light {
+  color: var(--ink) !important;
+  border: 1px solid var(--ink) !important;
+  background-color: transparent !important;
+}
+
+.actions .btn:hover,
+.actions .atom-btn-outline-light:hover {
+  background-color: var(--ink) !important;
+  color: var(--bg) !important;
+}
+
+.badge.bg-light,
+.bg-light,
+.bg-white {
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+}
+
+.text-muted {
+  color: var(--grey) !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before,
+.breadcrumb-item.active {
+  color: var(--grey);
+}
+
+.page-link {
+  background-color: transparent;
+  border-color: var(--hair);
+  color: var(--ink);
+  border-radius: 0 !important;
+}
+
+.page-item.active .page-link {
+  background-color: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+/* Treeview (jsTree) nas páginas de descrição arquivística */
+[data-theme="dark"] .jstree-default .jstree-anchor {
+  color: var(--ink);
+}
+[data-theme="dark"] .jstree-default .jstree-hovered {
+  background: var(--row-hover);
+  box-shadow: none;
+}
+[data-theme="dark"] .jstree-default .jstree-clicked {
+  background: var(--hair);
+  box-shadow: none;
+}
+
+/* ---------- Página Inicial (Hero NPD + Grade de Fundos) ---------- */
+.npd-home .intro {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap-x);
+  row-gap: 40px;
+  align-items: end;
+  padding-top: 28px;
+  padding-bottom: 48px;
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--ink);
+  animation: npd-rise .8s var(--ease) both;
+}
+
+.npd-home .intro__title { grid-column: 1 / span 7; }
+.npd-home .intro__text { grid-column: 8 / span 5; }
+.npd-home .eyebrow { margin: 0 0 18px; color: var(--grey); font-size: 13.5px; }
+.npd-home .intro h1 {
+  font-weight: 700;
+  font-size: clamp(34px, 4.6vw, 64px);
+  line-height: .98;
+  letter-spacing: -.035em;
+  margin: 0;
+}
+.npd-home .lead { margin: 0 0 18px; font-size: 15.5px; line-height: 1.45; max-width: 460px; color: var(--ink); }
+.npd-home .intro__links { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; flex-wrap: wrap; color: var(--grey); }
+.npd-home .intro__links a:hover { color: var(--ink); }
+
+.npd-home .facts {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap-x);
+  margin: 0;
+}
+.npd-home .facts > div { grid-column: span 2; }
+.npd-home .facts dt { color: var(--grey); font-weight: 400; font-size: 13px; margin-bottom: 4px; }
+.npd-home .facts dd { margin: 0; white-space: nowrap; font-weight: 300; font-size: 26px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+
+@keyframes npd-rise { from { opacity: 0; transform: translateY(6px); } }
+
+.npd-home .section-title { font-weight: 700; font-size: 22px; letter-spacing: -.015em; margin: 0 0 18px; }
+.npd-home .section-title .range { font-weight: 300; }
+
+.npd-home .toolbar {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 38px;
+}
+.npd-home .filter input {
+  width: 200px; border: 0; padding: 0 0 2px; background: none; outline: 0; color: var(--ink);
+  border-bottom: 1px solid transparent; transition: border-color .2s;
+}
+.npd-home .filter input::placeholder { color: var(--grey); }
+.npd-home .filter input:focus { border-bottom-color: var(--ink); }
+.npd-home .toolbar__right { display: flex; align-items: baseline; gap: 28px; }
+.npd-home .count { color: var(--grey); font-variant-numeric: tabular-nums; }
+.npd-home .text-toggle { display: flex; gap: 12px; }
+.npd-home .text-toggle button {
+  border: 0; padding: 0; background: none; cursor: pointer; color: var(--grey);
+  background-image: linear-gradient(var(--ink), var(--ink));
+  background-size: 0 1px; background-repeat: no-repeat; background-position: 0 100%;
+  transition: color .2s, background-size .3s var(--ease);
+}
+.npd-home .text-toggle button:hover { color: var(--ink); }
+.npd-home .text-toggle button[aria-pressed="true"] { color: var(--ink); background-size: 100% 1px; }
+
+.fonds-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: var(--gap-x); row-gap: 48px;
+}
+.fonds-card[hidden] { display: none; }
+
+.reveal .fonds-card { opacity: 0; transform: translateY(10px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal .fonds-card.is-visible { opacity: 1; transform: none; }
+
+.fonds-card__link { display: block; text-decoration: none !important; }
+.fonds-card__media {
+  margin: 0 0 10px; aspect-ratio: 1 / 1.08;
+  display: flex; align-items: flex-end; justify-content: flex-start;
+}
+.fonds-card__media img {
+  max-width: 100%; max-height: 100%; width: auto; height: auto;
+  filter: grayscale(1) contrast(1.04);
+  transition: filter .5s var(--ease);
+}
+.fonds-card__link:hover img { filter: grayscale(0) contrast(1); }
+
+/* Fallback limpo quando o fundo ainda não tem objeto digital no AtoM */
+.fonds-card__placeholder {
+  width: 100%; aspect-ratio: 4 / 3;
+  border: 1px solid var(--hair);
+  display: flex; align-items: flex-end; padding: 12px;
+  font-size: 11px; color: var(--grey); letter-spacing: .04em; text-transform: uppercase;
+}
+
+.fonds-card__title, .fonds-card__sub {
+  margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-size: 13px; line-height: 1.35;
+}
+.fonds-card__title { font-weight: 500; }
+.fonds-card__title span {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0 1px; background-repeat: no-repeat; background-position: 0 100%;
+  transition: background-size .35s var(--ease);
+}
+.fonds-card__link:hover .fonds-card__title span { background-size: 100% 1px; }
+.fonds-card__sub { color: var(--grey); font-weight: 400; font-variant-numeric: tabular-nums; }
+.fonds-card__cell { display: none; }
+
+/* Modo Lista */
+.list-head { display: none; }
+.is-list-mode .list-head,
+.is-list .fonds-card__link {
+  display: grid; grid-template-columns: 52px minmax(0, 2.2fr) 1.1fr .9fr .5fr .9fr; gap: var(--gap-x); align-items: center;
+}
+.is-list-mode .list-head { color: var(--grey); padding-bottom: 8px; border-bottom: 1px solid var(--ink); font-size: 12.5px; }
+.fonds-grid.is-list { grid-template-columns: 1fr; row-gap: 0; }
+.is-list .fonds-card__link { padding: 9px 0; border-bottom: 1px solid var(--hair); transition: background-color .15s; }
+.is-list .fonds-card__link:hover { background-color: var(--row-hover); }
+.is-list .fonds-card__media { margin: 0; aspect-ratio: 1; width: 52px; align-items: center; justify-content: center; }
+.is-list .fonds-card__sub { display: none; }
+.is-list .fonds-card__cell { display: block; font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.is-list .fonds-card__cell.muted-cell { color: var(--grey); }
+
+@media (max-width: 1180px) {
+  .fonds-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 960px) {
+  .npd-home .intro__title, .npd-home .intro__text { grid-column: 1 / -1; }
+  .npd-home .facts > div { grid-column: span 4; }
+  .fonds-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .is-list-mode .list-head, .is-list .fonds-card__link { grid-template-columns: 44px minmax(0, 1fr) auto; }
+  .is-list .fonds-card__media { width: 44px; }
+  .is-list .fonds-card__cell:not(.c-dates), .is-list-mode .list-head span:nth-child(n+3):not(:nth-child(4)) { display: none; }
+}
+@media (max-width: 640px) {
+  .npd-home .facts dd { font-size: 20px; }
+  .fonds-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; --gap-x: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
