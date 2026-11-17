@@ -14,6 +14,22 @@
   }
   $topFonds = QubitInformationObject::get($criteria);
 
+  // Entidade custodiadora principal para o link "Sobre o NPD"
+  $repoCriteria = new Criteria();
+  $repoCriteria->setLimit(1);
+  $mainRepo = QubitRepository::getOne($repoCriteria);
+  $aboutNpdUrl = $mainRepo
+      ? url_for([$mainRepo, 'module' => 'repository'])
+      : url_for(['module' => 'repository', 'action' => 'browse']);
+
+  // Conteúdo institucional: usa o texto do NPD se a página ainda estiver com o texto padrão do AtoM
+  $rawContent = (string) $sf_data->getRaw('content');
+  $isDefaultAtomHome = ('' === trim(strip_tags($rawContent)))
+      || false !== strpos($rawContent, 'This is the default homepage for AtoM');
+  $heroLeadHtml = $isDefaultAtomHome
+      ? '<p>O NPD reúne, preserva e torna acessíveis os arquivos de arquitetos e escritórios que marcaram a arquitetura e o urbanismo no Brasil, apoiando o ensino e a pesquisa na FAU&nbsp;UFRJ.</p>'
+      : render_value_html($rawContent);
+
   $totalSeries = 0;
   $minYear = null;
   $maxYear = null;
@@ -43,6 +59,7 @@
           }
       }
 
+      // Contagem de filhos diretos com nível Série
       $seriesCount = (int) QubitPdo::fetchColumn(
           'SELECT COUNT(DISTINCT io.id)
              FROM information_object io
@@ -54,6 +71,25 @@
           [$item->id, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID, 'Series', 'Série']
       );
       $totalSeries += $seriesCount;
+
+      // Contagem total de itens (descendentes com nível Item; se não houver, total de descendentes)
+      $itemsCount = (int) QubitPdo::fetchColumn(
+          'SELECT COUNT(DISTINCT io.id)
+             FROM information_object io
+             INNER JOIN term t ON io.level_of_description_id = t.id
+             INNER JOIN term_i18n ti ON ti.id = t.id
+            WHERE io.lft > ?
+              AND io.rgt < ?
+              AND t.taxonomy_id = ?
+              AND ti.name IN (?, ?)',
+          [$item->lft, $item->rgt, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID, 'Item', 'Documento']
+      );
+      if (0 === $itemsCount) {
+          $itemsCount = (int) QubitPdo::fetchColumn(
+              'SELECT COUNT(*) FROM information_object WHERE lft > ? AND rgt < ?',
+              [$item->lft, $item->rgt]
+          );
+      }
 
       $thumbPath = null;
       if ($do = $item->getDigitalObject()) {
@@ -71,7 +107,7 @@
           'dates' => $datesText ?: 's.d.',
           'start' => $startYear ?: 9999,
           'series' => $seriesCount,
-          'extent' => $item->getExtentAndMedium(['cultureFallback' => true]) ?: '—',
+          'items' => $itemsCount,
           'thumb' => $thumbPath,
       ];
   }
@@ -87,12 +123,10 @@
     </div>
     <div class="intro__text">
       <div class="lead">
-        <?php echo render_value_html($sf_data->getRaw('content')); ?>
+        <?php echo $heroLeadHtml; ?>
       </div>
       <ul class="intro__links">
-        <li><?php echo link_to(__('Sobre o NPD'), ['module' => 'staticpage', 'slug' => 'about']); ?></li>
-        <li><?php echo link_to(__('Descrições arquivísticas'), ['module' => 'informationobject', 'action' => 'browse']); ?></li>
-        <li><?php echo link_to(__('Entidade custodiadora'), ['module' => 'repository', 'action' => 'browse']); ?></li>
+        <li><a href="<?php echo $aboutNpdUrl; ?>"><?php echo __('Sobre o NPD'); ?></a></li>
       </ul>
     </div>
     <dl class="facts">
@@ -121,8 +155,7 @@
       <div class="toolbar__right">
         <span id="fonds-count" class="count"><?php echo count($fondsData); ?></span>
         <div class="text-toggle" role="group" aria-label="<?php echo __('Ordenação'); ?>">
-          <button data-sort="random" aria-pressed="true" type="button"><?php echo __('Aleatória'); ?></button>
-          <button data-sort="alpha" aria-pressed="false" type="button"><?php echo __('A–Z'); ?></button>
+          <button data-sort="alpha" aria-pressed="true" type="button"><?php echo __('A–Z'); ?></button>
           <button data-sort="date" aria-pressed="false" type="button"><?php echo __('Data'); ?></button>
         </div>
         <div class="text-toggle" role="group" aria-label="<?php echo __('Visualização'); ?>">
@@ -165,7 +198,7 @@
                 <dl class="shelf-box__meta">
                   <div><dt><?php echo __('Datas'); ?></dt><dd><?php echo esc_specialchars($f['dates']); ?></dd></div>
                   <div><dt><?php echo __('Séries'); ?></dt><dd><?php echo $f['series']; ?></dd></div>
-                  <div><dt><?php echo __('Extensão'); ?></dt><dd><?php echo esc_specialchars($f['extent']); ?></dd></div>
+                  <div><dt><?php echo __('Itens'); ?></dt><dd><?php echo $f['items']; ?></dd></div>
                 </dl>
               </div>
             </div>

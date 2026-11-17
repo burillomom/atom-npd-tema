@@ -31,8 +31,8 @@
       <span class="visually-hidden"><?php echo __('Toggle navigation'); ?></span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-between" id="navbar-content">
-      <ul class="navbar-nav npd-primary-nav me-3">
+    <div class="collapse navbar-collapse" id="navbar-content">
+      <ul class="navbar-nav npd-primary-nav">
         <li class="nav-item">
           <a class="nav-link <?php echo ('staticpage' === $mod && 'home' === $act) ? 'is-active' : ''; ?>"
              href="<?php echo url_for('@homepage'); ?>">
@@ -43,12 +43,6 @@
           <a class="nav-link <?php echo ('informationobject' === $mod && 'browse' === $act) ? 'is-active' : ''; ?>"
              href="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse']); ?>">
             <?php echo __('Descrições arquivísticas'); ?>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link <?php echo ('repository' === $mod) ? 'is-active' : ''; ?>"
-             href="<?php echo url_for(['module' => 'repository', 'action' => 'browse']); ?>">
-            <?php echo __('Entidade custodiadora'); ?>
           </a>
         </li>
         <li class="nav-item">
@@ -65,11 +59,12 @@
         </li>
       </ul>
 
-      <div class="d-flex flex-wrap flex-lg-nowrap align-items-lg-center gap-2 ms-auto">
-        <div class="d-flex align-items-center">
-          <?php echo get_component('menu', 'browseMenu', ['sf_cache_key' => 'dominion-b5'.$sf_user->getCulture().$sf_user->getUserID()]); ?>
-          <?php echo get_component('search', 'box'); ?>
-        </div>
+      <div class="npd-search-center mx-lg-auto">
+        <?php echo get_component('search', 'box'); ?>
+      </div>
+
+      <div class="d-flex flex-wrap flex-lg-nowrap align-items-lg-center gap-2 ms-lg-auto">
+        <?php echo get_component('menu', 'browseMenu', ['sf_cache_key' => 'dominion-b5'.$sf_user->getCulture().$sf_user->getUserID()]); ?>
         <ul id="npd-right-nav" class="navbar-nav align-items-lg-center">
           <?php echo get_component('menu', 'mainMenu', ['sf_cache_key' => 'dominion-b5'.$sf_user->getCulture().$sf_user->getUserID()]); ?>
           <?php echo get_component('menu', 'clipboardMenu'); ?>

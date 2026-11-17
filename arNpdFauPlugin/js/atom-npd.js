@@ -18,7 +18,7 @@
   var urlLight = /[?&]theme=light\b/.test(location.search);
   var savedTheme = null;
   try { savedTheme = localStorage.getItem("npd-theme"); } catch (e) {}
-  var initDark = urlDark ? true : urlLight ? false : (savedTheme ? savedTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches);
+  var initDark = urlDark ? true : urlLight ? false : (savedTheme ? savedTheme === "dark" : true);
   setTheme(initDark);
 
   var navContainer = document.getElementById("npd-right-nav") || document.querySelector("#top-bar .navbar-nav");
@@ -81,23 +81,21 @@
     return Math.max(3, Math.floor((w - 240) / 128));
   }
 
-  var state = { sort: "random", view: "shelf", query: "", order: [] };
+  var state = { sort: "alpha", view: "shelf", query: "", order: [] };
 
   function computeOrder() {
     var n = boxes.length;
     var indices = [];
     for (var i = 0; i < n; i++) indices.push(i);
 
-    if (state.sort === "alpha") {
-      indices.sort(function (ia, ib) {
-        return (boxes[ia].dataset.title || "").localeCompare(boxes[ib].dataset.title || "", "pt");
-      });
-    } else if (state.sort === "date") {
+    if (state.sort === "date") {
       indices.sort(function (ia, ib) {
         return (parseInt(boxes[ia].dataset.start, 10) || 9999) - (parseInt(boxes[ib].dataset.start, 10) || 9999);
       });
     } else {
-      indices = shuffleIndices(n);
+      indices.sort(function (ia, ib) {
+        return (boxes[ia].dataset.title || "").localeCompare(boxes[ib].dataset.title || "", "pt");
+      });
     }
     state.order = indices;
   }

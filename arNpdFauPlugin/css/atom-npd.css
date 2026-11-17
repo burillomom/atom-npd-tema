@@ -209,7 +209,26 @@ header#top-bar,
   color: var(--ink);
 }
 
-/* Campo de busca nativo do AtoM */
+/* Campo de busca nativo do AtoM centralizado e engrenagem à direita */
+.npd-search-center {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  max-width: 360px;
+}
+
+.npd-search-center #search-form {
+  width: 100%;
+}
+
+.npd-search-center #search-form .input-group {
+  flex-wrap: nowrap;
+}
+
+.npd-search-center #search-form .dropdown {
+  order: 3;
+}
+
 #top-bar #search-form input[type="text"],
 #top-bar #search-form input[type="search"],
 #top-bar .form-control {
@@ -422,7 +441,7 @@ ul.actions,
 .npd-home .intro h1 {
   font-weight: 700;
   font-size: clamp(34px, 4.6vw, 64px);
-  line-height: .98;
+  line-height: 1.12;
   letter-spacing: -.035em;
   margin: 0;
 }
