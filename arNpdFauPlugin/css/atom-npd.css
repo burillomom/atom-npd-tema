@@ -503,12 +503,167 @@ ul.actions,
   color: var(--grey) !important;
 }
 
-/* Carrossel de imagens na página de descrição */
+/* Carrossel de imagens e árvore hierárquica na página de descrição */
+#atom-digital-object-carousel .accordion-header {
+  border-color: var(--hair) !important;
+}
+
+#atom-digital-object-carousel .accordion-button,
+.atom-section-header,
+.atom-section-header .text-primary,
+.accordion-button.text-primary {
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  font-weight: 600;
+  border-radius: 0 !important;
+}
+
+.accordion-button::after {
+  filter: invert(0);
+}
+
+[data-theme="dark"] .accordion-button::after {
+  filter: invert(1) grayscale(1);
+}
+
+#collapse-carousel .accordion-body,
+#atom-digital-object-carousel .accordion-body.bg-secondary {
+  background-color: var(--bg) !important;
+  border: 1px solid var(--hair);
+  border-top: 0;
+  color: var(--ink) !important;
+}
+
+#atom-digital-object-carousel .slick-slide img {
+  border: 1px solid var(--hair) !important;
+  background: var(--surface) !important;
+  padding: 0;
+  filter: grayscale(.85) contrast(1.03);
+  opacity: .65;
+  transition: filter .4s var(--ease), opacity .4s var(--ease), transform .4s var(--ease);
+}
+
+#atom-digital-object-carousel .slick-center img,
+#atom-digital-object-carousel .slick-slide:hover img {
+  filter: grayscale(0) contrast(1);
+  opacity: 1;
+}
+
+#atom-digital-object-carousel .slick-prev,
+#atom-digital-object-carousel .slick-next {
+  background: transparent !important;
+  color: var(--ink) !important;
+  width: 32px;
+  height: 32px;
+}
+
+#atom-digital-object-carousel .slick-prev::before,
+#atom-digital-object-carousel .slick-next::before {
+  color: var(--ink) !important;
+  opacity: .75;
+  font-size: 22px;
+}
+
+#atom-digital-object-carousel .slick-prev:hover::before,
+#atom-digital-object-carousel .slick-next:hover::before {
+  opacity: 1;
+}
+
+#atom-digital-object-carousel .slick-dots li button::before {
+  color: var(--grey) !important;
+  opacity: .45;
+  font-size: 8px;
+}
+
+#atom-digital-object-carousel .slick-dots li.slick-active button::before {
+  color: var(--ink) !important;
+  opacity: 1;
+}
+
 .carousel-caption,
 #image-carousel .text-white,
-.carousel .slick-prev::before,
-.carousel .slick-next::before {
+#atom-digital-object-carousel .text-white,
+#atom-digital-object-carousel a {
   color: var(--ink) !important;
+}
+
+/* Abas e Treeview (Acervos documentais / Pesquisa rápida / Ocultar hierarquia) */
+#treeview-menu .nav-link,
+.nav-tabs .nav-link {
+  background-color: transparent !important;
+  color: var(--grey) !important;
+  border: 0 !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  font-size: 13px;
+  padding: 8px 12px;
+}
+
+#treeview-menu .nav-link:hover,
+.nav-tabs .nav-link:hover {
+  color: var(--ink) !important;
+}
+
+#treeview-menu .nav-link.active,
+.nav-tabs .nav-link.active {
+  background-color: transparent !important;
+  color: var(--ink) !important;
+  border-bottom: 2px solid var(--ink) !important;
+  font-weight: 600;
+}
+
+#fullwidth-treeview,
+#treeview,
+.treeview {
+  background-color: var(--surface) !important;
+  border-color: var(--hair) !important;
+}
+
+#fullwidth-treeview li.active,
+#fullwidth-treeview li.active > a,
+#treeview li.active,
+#treeview li.active > a,
+.treeview .active,
+.treeview .active > a {
+  background-color: var(--row-hover) !important;
+  color: var(--ink) !important;
+  font-weight: 600;
+}
+
+/* Tooltips (ex: Área de transferência no topo) */
+.tooltip-inner {
+  background-color: var(--ink) !important;
+  color: var(--bg) !important;
+  border-radius: 0 !important;
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: var(--ink) !important;
+}
+.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: var(--ink) !important;
+}
+
+/* Campos de descrição arquivística */
+.field {
+  border-bottom: 1px solid var(--hair);
+  padding: 10px 16px;
+}
+.field h3,
+.field .field-label {
+  color: var(--grey) !important;
+  font-weight: 500;
+}
+.field a {
+  color: var(--ink) !important;
+  text-decoration: underline;
+  text-underline-color: var(--hair);
+  text-underline-offset: 3px;
+}
+.field a:hover {
+  text-decoration-color: var(--ink);
 }
 
 .breadcrumb-item + .breadcrumb-item::before,
