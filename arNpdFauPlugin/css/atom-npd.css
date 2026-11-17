@@ -395,7 +395,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 .card-body,
 .card-footer,
 article.search-result,
-#content > .bg-white,
+#content,
 .search-results {
   background-color: var(--surface) !important;
   color: var(--ink) !important;
