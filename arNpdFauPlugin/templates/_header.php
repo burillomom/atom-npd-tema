@@ -63,7 +63,7 @@
         <?php echo get_component('search', 'box'); ?>
       </div>
 
-      <div class="d-flex flex-wrap flex-lg-nowrap align-items-lg-center gap-2 ms-lg-auto">
+      <div class="npd-right-tools d-flex flex-wrap flex-lg-nowrap align-items-lg-center gap-2 ms-lg-auto">
         <?php echo get_component('menu', 'browseMenu', ['sf_cache_key' => 'dominion-b5'.$sf_user->getCulture().$sf_user->getUserID()]); ?>
         <ul id="npd-right-nav" class="navbar-nav align-items-lg-center">
           <?php echo get_component('menu', 'mainMenu', ['sf_cache_key' => 'dominion-b5'.$sf_user->getCulture().$sf_user->getUserID()]); ?>
