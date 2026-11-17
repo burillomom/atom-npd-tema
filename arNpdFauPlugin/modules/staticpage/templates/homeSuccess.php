@@ -118,6 +118,13 @@
 <div class="npd-home">
   <section class="intro">
     <div class="intro__title">
+      <div class="npd-hero-logos">
+        <img class="hero-logo hero-logo-npd logo-light" src="/plugins/arNpdFauPlugin/images/logo-npd-full.png" alt="NPD — Núcleo de Pesquisa e Documentação">
+        <img class="hero-logo hero-logo-npd logo-dark" src="/plugins/arNpdFauPlugin/images/logo-npd-full-dark.png" alt="NPD — Núcleo de Pesquisa e Documentação">
+        <span class="hero-logos-sep" aria-hidden="true"></span>
+        <img class="hero-logo hero-logo-ufrj logo-light" src="/plugins/arNpdFauPlugin/images/logo-ufrj.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
+        <img class="hero-logo hero-logo-ufrj logo-dark" src="/plugins/arNpdFauPlugin/images/logo-ufrj-dark.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
+      </div>
       <p class="eyebrow">Faculdade de Arquitetura e Urbanismo<br>Universidade Federal do Rio de Janeiro</p>
       <h1>Núcleo de Pesquisa<br>e Documentação</h1>
     </div>

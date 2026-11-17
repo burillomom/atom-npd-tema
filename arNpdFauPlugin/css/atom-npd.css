@@ -437,6 +437,28 @@ ul.actions,
 
 .npd-home .intro__title { grid-column: 1 / span 7; }
 .npd-home .intro__text { grid-column: 8 / span 5; }
+.npd-hero-logos {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.npd-hero-logos .hero-logo {
+  height: 38px;
+  width: auto;
+  display: block;
+}
+.npd-hero-logos .hero-logo-ufrj {
+  height: 40px;
+}
+.npd-hero-logos .hero-logos-sep {
+  width: 1px;
+  height: 30px;
+  background: var(--hair);
+}
+.npd-hero-logos .logo-dark { display: none; }
+[data-theme="dark"] .npd-hero-logos .logo-light { display: none; }
+[data-theme="dark"] .npd-hero-logos .logo-dark { display: block; }
 .npd-home .eyebrow { margin: 0 0 18px; color: var(--grey); font-size: 13.5px; }
 .npd-home .intro h1 {
   font-weight: 700;
