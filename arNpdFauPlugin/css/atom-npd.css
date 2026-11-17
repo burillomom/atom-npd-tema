@@ -6,11 +6,12 @@
 
 :root {
   --bg: #ecece7;
-  --surface: #f5f5f1;
+  --surface: transparent;
+  --panel: #e5e4de;
   --ink: #111111;
   --grey: #6e6e69;
   --hair: #d2d2cc;
-  --row-hover: rgba(0, 0, 0, .03);
+  --row-hover: rgba(0, 0, 0, .035);
 
   --font: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --ease: cubic-bezier(.2, .7, .2, 1);
@@ -40,11 +41,12 @@
 
 [data-theme="dark"] {
   --bg: #121211;
-  --surface: #1b1b19;
+  --surface: transparent;
+  --panel: #1b1b19;
   --ink: #ededeb;
   --grey: #8e8e88;
   --hair: #2a2a28;
-  --row-hover: rgba(255, 255, 255, .04);
+  --row-hover: rgba(255, 255, 255, .05);
 
   color-scheme: dark;
 
@@ -396,10 +398,26 @@ h1, .h1, h2, .h2, h3, .h3 {
 .card-footer,
 article.search-result,
 #content,
-.search-results {
-  background-color: var(--surface) !important;
+.search-results,
+.accordion-item {
+  background-color: transparent !important;
   color: var(--ink) !important;
   border-color: var(--hair) !important;
+}
+
+/* Deixa as caixas internas seamless com o fundo, separadas apenas por fios horizontais */
+#content,
+.card,
+.accordion-item {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+}
+
+.accordion-header {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
 }
 
 article.search-result a,
@@ -443,7 +461,7 @@ article.search-result .clipboard:hover {
 }
 
 .dropdown-menu {
-  background-color: var(--surface) !important;
+  background-color: var(--bg) !important;
   border: 1px solid var(--hair) !important;
   border-radius: 0 !important;
   color: var(--ink) !important;
@@ -569,15 +587,17 @@ ul.actions,
   opacity: 1;
 }
 
-#atom-digital-object-carousel .slick-dots li button::before {
+#atom-digital-object-carousel .slick-dots li button::before,
+.slick-dots li button::before {
   color: var(--grey) !important;
-  opacity: .45;
-  font-size: 8px;
+  opacity: .4 !important;
+  font-size: 7px !important;
 }
 
-#atom-digital-object-carousel .slick-dots li.slick-active button::before {
+#atom-digital-object-carousel .slick-dots li.slick-active button::before,
+.slick-dots li.slick-active button::before {
   color: var(--ink) !important;
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .carousel-caption,
@@ -612,22 +632,105 @@ ul.actions,
   font-weight: 600;
 }
 
+#fullwidth-treeview-row #fullwidth-treeview,
 #fullwidth-treeview,
 #treeview,
 .treeview {
-  background-color: var(--surface) !important;
-  border-color: var(--hair) !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--hair) !important;
+  border-bottom: 1px solid var(--hair) !important;
 }
 
-#fullwidth-treeview li.active,
-#fullwidth-treeview li.active > a,
-#treeview li.active,
-#treeview li.active > a,
-.treeview .active,
-.treeview .active > a {
+#fullwidth-treeview-row #fullwidth-treeview .jstree-anchor,
+#treeview .jstree-anchor {
+  color: var(--ink) !important;
+  border-radius: 0 !important;
+}
+
+#fullwidth-treeview-row #fullwidth-treeview .jstree-anchor:hover,
+#fullwidth-treeview-row #fullwidth-treeview .jstree-anchor:focus,
+#fullwidth-treeview-row #fullwidth-treeview .jstree-anchor.jstree-hovered,
+#treeview .jstree-hovered {
   background-color: var(--row-hover) !important;
   color: var(--ink) !important;
+  box-shadow: none !important;
+}
+
+#fullwidth-treeview-row #fullwidth-treeview .jstree-anchor.jstree-clicked,
+#fullwidth-treeview li.active > a,
+#treeview .jstree-clicked,
+#treeview li.active > a,
+.treeview .active > a {
+  background-color: var(--panel) !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+#fullwidth-treeview-row .ui-resizable-s {
+  background-color: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--hair) !important;
+  opacity: .5;
+}
+
+#fullwidth-treeview-row .ui-resizable-s:hover {
+  background-color: var(--row-hover) !important;
+  opacity: 1;
+}
+
+/* Menu direito (#context-menu) seamless e alinhado com a paleta */
+#context-menu section,
+#context-menu > div > section {
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--hair) !important;
+  padding-top: 14px;
+  margin-top: 14px;
+}
+
+#context-menu section:first-child {
+  border-top: 0 !important;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+#context-menu h4,
+#context-menu h2 {
+  font-size: 13px;
   font-weight: 600;
+  color: var(--ink) !important;
+  margin-bottom: 8px;
+}
+
+#context-menu a {
+  color: var(--grey) !important;
+  text-decoration: none !important;
+  font-size: 13px;
+}
+
+#context-menu a:hover {
+  color: var(--ink) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+#context-menu i,
+#context-menu svg {
+  color: var(--grey) !important;
+}
+
+#context-menu a:hover i,
+#context-menu a:hover svg {
+  color: var(--ink) !important;
+}
+
+/* Caixa da Entidade Custodiadora no topo esquerdo da descrição */
+#sidebar .card,
+#sidebar section {
+  background: transparent !important;
+  border-color: var(--hair) !important;
 }
 
 /* Tooltips (ex: Área de transferência no topo) */
