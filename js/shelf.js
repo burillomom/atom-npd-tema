@@ -27,7 +27,7 @@
 
   function getPerShelf() {
     var w = wrap.clientWidth || window.innerWidth;
-    if (w <= 720) return 999;
+    if (w <= 720) return 5;
     return Math.max(3, Math.floor((w - 240) / 128));
   }
 

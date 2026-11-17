@@ -76,7 +76,7 @@
 
   function getPerShelf() {
     var w = shelfWrap.clientWidth || window.innerWidth;
-    if (w <= 720) return 999;
+    if (w <= 720) return 5;
     // Caixas mais grossas (116px) + folga (~240px) para abrir no hover sem quebrar a linha
     return Math.max(3, Math.floor((w - 240) / 128));
   }
@@ -179,6 +179,11 @@
         e.preventDefault();
         boxes.forEach(function (b) { b.classList.remove("is-open"); });
         box.classList.add("is-open");
+        if (box.scrollIntoView) {
+          setTimeout(function () {
+            box.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
+          }, 120);
+        }
       }
     });
   });
