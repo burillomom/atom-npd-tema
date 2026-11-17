@@ -31,6 +31,7 @@
       : render_value_html($rawContent);
 
   $totalSeries = 0;
+  $totalItems = 0;
   $minYear = null;
   $maxYear = null;
   $fondsData = [];
@@ -90,6 +91,7 @@
               [$item->lft, $item->rgt]
           );
       }
+      $totalItems += $itemsCount;
 
       $thumbPath = null;
       if ($do = $item->getDigitalObject()) {
@@ -139,9 +141,7 @@
     <dl class="facts">
       <div><dt><?php echo __('Fundos'); ?></dt><dd><?php echo count($fondsData); ?></dd></div>
       <div><dt><?php echo __('Séries'); ?></dt><dd><?php echo $totalSeries; ?></dd></div>
-      <?php if ($rangeText) { ?>
-        <div><dt><?php echo __('Período'); ?></dt><dd><?php echo $rangeText; ?></dd></div>
-      <?php } ?>
+      <div><dt><?php echo __('Documentos'); ?></dt><dd><?php echo number_format($totalItems, 0, ',', '.'); ?></dd></div>
     </dl>
   </section>
 
