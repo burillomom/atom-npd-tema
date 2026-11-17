@@ -324,7 +324,19 @@ h1, .h1, h2, .h2, h3, .h3 {
 .atom-section-header i,
 .atom-section-header svg,
 .atom-section-header .text-primary {
+  background-color: transparent !important;
   color: var(--ink) !important;
+  box-shadow: none !important;
+}
+
+.accordion-button::after,
+.atom-section-header a::after {
+  filter: brightness(0) opacity(.7) !important;
+}
+
+[data-theme="dark"] .accordion-button::after,
+[data-theme="dark"] .atom-section-header a::after {
+  filter: brightness(0) invert(1) opacity(.85) !important;
 }
 
 .form-control,
@@ -564,13 +576,7 @@ ul.actions,
   border-radius: 0 !important;
 }
 
-.accordion-button::after {
-  filter: invert(0);
-}
-
-[data-theme="dark"] .accordion-button::after {
-  filter: invert(1) grayscale(1);
-}
+/* Setas dos acordeões seguem a regra global com filter acima */
 
 #collapse-carousel .accordion-body,
 #atom-digital-object-carousel .accordion-body.bg-secondary {
