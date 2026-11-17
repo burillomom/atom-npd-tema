@@ -297,15 +297,34 @@ h1, .h1, h2, .h2, h3, .h3 {
   border-radius: 0;
 }
 
-.accordion-button {
-  background-color: var(--surface);
-  color: var(--ink);
+.accordion-button,
+.accordion-button:hover,
+.accordion-button:focus,
+#fullwidth-treeview-row .accordion-button,
+#fullwidth-treeview-row .accordion-button:hover,
+#fullwidth-treeview-row .accordion-button:focus {
+  background-color: transparent !important;
+  color: var(--ink) !important;
   box-shadow: none !important;
 }
 
+#fullwidth-treeview-row .accordion-button:hover,
+.accordion-button:hover {
+  background-color: var(--row-hover) !important;
+}
+
 .accordion-button:not(.collapsed) {
-  background-color: var(--row-hover);
-  color: var(--ink);
+  background-color: var(--row-hover) !important;
+  color: var(--ink) !important;
+}
+
+.atom-section-header,
+.atom-section-header a,
+.atom-section-header button,
+.atom-section-header i,
+.atom-section-header svg,
+.atom-section-header .text-primary {
+  color: var(--ink) !important;
 }
 
 .form-control,
