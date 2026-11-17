@@ -355,6 +355,40 @@ h1, .h1, h2, .h2, h3, .h3 {
   box-shadow: none;
 }
 
+.form-select option {
+  background-color: var(--panel);
+  color: var(--ink);
+}
+
+[data-theme="dark"] .form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ededeb' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+input,
+select,
+textarea {
+  accent-color: var(--ink);
+}
+
+.form-check-input {
+  background-color: transparent !important;
+  border-color: var(--grey) !important;
+  box-shadow: none !important;
+}
+
+.form-check-input:checked {
+  background-color: var(--ink) !important;
+  border-color: var(--ink) !important;
+}
+
+[data-theme="dark"] .form-check-input[type="radio"]:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23121211'/%3e%3c/svg%3e") !important;
+}
+
+[data-theme="dark"] .form-check-input[type="checkbox"]:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23121211' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e") !important;
+}
+
 .btn,
 [class*="atom-btn-"] {
   border-radius: 0 !important;
