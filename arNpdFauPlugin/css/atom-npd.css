@@ -341,9 +341,130 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 .atom-btn-white {
-  background-color: var(--ink) !important;
-  color: var(--bg) !important;
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--hair) !important;
+}
+
+.atom-btn-white:hover,
+.atom-btn-white:focus,
+.atom-btn-white.active {
+  background-color: var(--row-hover) !important;
+  color: var(--ink) !important;
   border-color: var(--ink) !important;
+}
+
+.filter-tag.atom-btn-white {
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--hair) !important;
+}
+
+/* Listas, facetas (#sidebar) e cartões de busca (/informationobject/browse) */
+.list-group-item {
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  border-color: var(--hair) !important;
+}
+
+.list-group-item:hover,
+.list-group-item:focus {
+  background-color: var(--row-hover) !important;
+  color: var(--ink) !important;
+}
+
+.list-group-item.active {
+  background-color: var(--row-hover) !important;
+  color: var(--ink) !important;
+  border-color: var(--hair) !important;
+  font-weight: 600;
+}
+
+#sidebar .btn-lg.atom-btn-white {
+  background-color: var(--surface) !important;
+  color: var(--grey) !important;
+  border: 1px solid var(--hair) !important;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  border-radius: 0 !important;
+}
+
+.card,
+.card-header,
+.card-body,
+.card-footer,
+article.search-result,
+#content > .bg-white,
+.search-results {
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  border-color: var(--hair) !important;
+}
+
+article.search-result a,
+.search-result h4 a,
+.search-result .h4 a {
+  color: var(--ink) !important;
+  font-weight: 600;
+}
+
+article.search-result .text-primary,
+.text-primary {
+  color: var(--grey) !important;
+}
+
+article.search-result .img-thumbnail,
+.img-thumbnail {
+  background-color: var(--bg) !important;
+  border: 1px solid var(--hair) !important;
+  border-radius: 0 !important;
+  padding: 2px;
+}
+
+article.search-result img {
+  filter: grayscale(1) contrast(1.04);
+  transition: filter .4s var(--ease);
+}
+
+article.search-result:hover img {
+  filter: grayscale(0) contrast(1);
+}
+
+article.search-result .clipboard {
+  background-color: transparent !important;
+  border: 1px solid var(--hair) !important;
+  color: var(--grey) !important;
+}
+
+article.search-result .clipboard:hover {
+  border-color: var(--ink) !important;
+  color: var(--ink) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--surface) !important;
+  border: 1px solid var(--hair) !important;
+  border-radius: 0 !important;
+  color: var(--ink) !important;
+}
+
+.dropdown-item {
+  color: var(--ink) !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item.active {
+  background-color: var(--row-hover) !important;
+  color: var(--ink) !important;
+}
+
+.table,
+.table > :not(caption) > * > * {
+  background-color: transparent !important;
+  color: var(--ink) !important;
+  border-color: var(--hair) !important;
 }
 
 /* Barra de ações (ex: botão Log in, Edit, Delete nas páginas internas) */
