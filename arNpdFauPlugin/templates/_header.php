@@ -22,11 +22,15 @@
 
 <header id="top-bar" class="navbar navbar-expand-lg d-print-none" role="navigation" aria-label="<?php echo __('Main navigation'); ?>">
   <div class="container-xxl npd-bar-inner">
-    <a class="navbar-brand d-flex align-items-center py-0 me-4" href="<?php echo url_for('@homepage'); ?>" title="<?php echo __('NPD · FAU UFRJ'); ?>" rel="home">
+    <a class="navbar-brand d-flex align-items-center py-0 me-2 me-lg-4" href="<?php echo url_for('@homepage'); ?>" title="<?php echo __('NPD · FAU UFRJ'); ?>" rel="home">
       <img src="/plugins/arNpdFauPlugin/images/logo-npd.png" alt="<?php echo __('NPD · FAU UFRJ'); ?>" class="npd-brand-logo">
     </a>
 
-    <button class="navbar-toggler atom-btn-secondary my-2 me-1 px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false">
+    <div class="npd-search-center">
+      <?php echo get_component('search', 'box'); ?>
+    </div>
+
+    <button class="navbar-toggler atom-btn-secondary my-1 ms-2 px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false">
       <i class="fas fa-bars" aria-hidden="true"></i>
       <span class="visually-hidden"><?php echo __('Toggle navigation'); ?></span>
     </button>
@@ -58,10 +62,6 @@
           </a>
         </li>
       </ul>
-
-      <div class="npd-search-center mx-lg-auto">
-        <?php echo get_component('search', 'box'); ?>
-      </div>
 
       <div class="npd-right-tools d-flex flex-wrap flex-lg-nowrap align-items-lg-center gap-2 ms-lg-auto">
         <?php echo get_component('menu', 'browseMenu', ['sf_cache_key' => 'dominion-b5'.$sf_user->getCulture().$sf_user->getUserID()]); ?>
