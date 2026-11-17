@@ -356,6 +356,15 @@ h1, .h1, h2, .h2, h3, .h3 {
   border-color: var(--ink) !important;
 }
 
+.btn i,
+.btn svg,
+.atom-btn-white i,
+.atom-btn-white svg,
+.atom-btn-outline-light i,
+.atom-btn-outline-light svg {
+  color: currentColor !important;
+}
+
 .filter-tag.atom-btn-white {
   background-color: var(--surface) !important;
   color: var(--ink) !important;
@@ -587,6 +596,10 @@ ul.actions,
   opacity: 1;
 }
 
+#atom-digital-object-carousel .slick-dots li button .slick-dot-icon,
+#atom-digital-object-carousel .slick-dots li button .slick-dot-icon::before,
+.slick-dots li button .slick-dot-icon,
+.slick-dots li button .slick-dot-icon::before,
 #atom-digital-object-carousel .slick-dots li button::before,
 .slick-dots li button::before {
   color: var(--grey) !important;
@@ -594,6 +607,10 @@ ul.actions,
   font-size: 7px !important;
 }
 
+#atom-digital-object-carousel .slick-dots li.slick-active button .slick-dot-icon,
+#atom-digital-object-carousel .slick-dots li.slick-active button .slick-dot-icon::before,
+.slick-dots li.slick-active button .slick-dot-icon,
+.slick-dots li.slick-active button .slick-dot-icon::before,
 #atom-digital-object-carousel .slick-dots li.slick-active button::before,
 .slick-dots li.slick-active button::before {
   color: var(--ink) !important;
