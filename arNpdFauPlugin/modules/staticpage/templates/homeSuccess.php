@@ -19,10 +19,12 @@
       'SELECT r.id
          FROM repository r
          INNER JOIN actor_i18n ai ON ai.id = r.id
-        WHERE ai.authorized_form_of_name IS NOT NULL
-          AND ai.authorized_form_of_name <> ""
+        WHERE r.id <> ?
+          AND ai.authorized_form_of_name IS NOT NULL
+          AND LENGTH(TRIM(ai.authorized_form_of_name)) > 0
         ORDER BY r.id ASC
-        LIMIT 1'
+        LIMIT 1',
+      [QubitRepository::ROOT_ID]
   );
   $mainRepo = $repoId ? QubitRepository::getById($repoId) : null;
   $aboutNpdUrl = $mainRepo
