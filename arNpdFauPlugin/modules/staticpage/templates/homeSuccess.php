@@ -14,13 +14,17 @@
   }
   $topFonds = QubitInformationObject::get($criteria);
 
-  // Entidade custodiadora principal para o link "Sobre o NPD" (ignora ROOT_ID)
-  $repoCriteria = new Criteria();
-  $repoCriteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
-  $repoCriteria->addJoin(QubitRepository::ID, QubitActorI18n::ID, Criteria::INNER_JOIN);
-  $repoCriteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, null, Criteria::ISNOTNULL);
-  $repoCriteria->setLimit(1);
-  $mainRepo = QubitRepository::getOne($repoCriteria);
+  // Entidade custodiadora principal para o link "Sobre o NPD" (ignora nós internos sem nome)
+  $repoId = (int) QubitPdo::fetchColumn(
+      'SELECT r.id
+         FROM repository r
+         INNER JOIN actor_i18n ai ON ai.id = r.id
+        WHERE ai.authorized_form_of_name IS NOT NULL
+          AND ai.authorized_form_of_name <> ""
+        ORDER BY r.id ASC
+        LIMIT 1'
+  );
+  $mainRepo = $repoId ? QubitRepository::getById($repoId) : null;
   $aboutNpdUrl = $mainRepo
       ? url_for([$mainRepo, 'module' => 'repository'])
       : url_for(['module' => 'repository', 'action' => 'browse']);
