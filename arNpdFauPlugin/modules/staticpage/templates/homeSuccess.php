@@ -14,8 +14,11 @@
   }
   $topFonds = QubitInformationObject::get($criteria);
 
-  // Entidade custodiadora principal para o link "Sobre o NPD"
+  // Entidade custodiadora principal para o link "Sobre o NPD" (ignora ROOT_ID)
   $repoCriteria = new Criteria();
+  $repoCriteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
+  $repoCriteria->addJoin(QubitRepository::ID, QubitActorI18n::ID, Criteria::INNER_JOIN);
+  $repoCriteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, null, Criteria::ISNOTNULL);
   $repoCriteria->setLimit(1);
   $mainRepo = QubitRepository::getOne($repoCriteria);
   $aboutNpdUrl = $mainRepo
