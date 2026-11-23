@@ -9,11 +9,12 @@
   --surface: transparent;
   --panel: #e5e4de;
   --ink: #111111;
-  --grey: #6e6e69;
+  --grey: #63635e;
   --hair: #d2d2cc;
   --row-hover: rgba(0, 0, 0, .035);
 
   --font: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --gap-x: 24px;
 
@@ -91,6 +92,11 @@ a:hover {
   text-decoration-thickness: 1px;
 }
 
+:focus-visible {
+  outline: 1px solid var(--ink) !important;
+  outline-offset: 3px;
+}
+
 .container-xxl,
 #wrapper.container-xxl {
   max-width: 1380px !important;
@@ -100,7 +106,7 @@ a:hover {
 
 #wrapper.container-xxl {
   padding-top: 48px !important;
-  padding-bottom: 96px !important;
+  padding-bottom: 56px !important;
 }
 
 @media (min-width: 992px) {
@@ -167,7 +173,7 @@ a:hover {
   }
   #wrapper.container-xxl {
     padding-top: 24px !important;
-    padding-bottom: 64px !important;
+    padding-bottom: 40px !important;
   }
   .npd-home .intro {
     row-gap: 26px;
@@ -188,6 +194,8 @@ a:hover {
   }
   .npd-home .filter input {
     width: 100%;
+    flex: 1;
+    min-width: 0;
     border-bottom-color: var(--hair);
     padding-bottom: 6px;
   }
@@ -1049,9 +1057,20 @@ ul.actions,
 .npd-home .toolbar {
   display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 38px;
 }
+.npd-home .filter {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.npd-home .npd-filter-icon {
+  color: var(--grey);
+  font-size: 12px;
+  pointer-events: none;
+}
 .npd-home .filter input {
-  width: 200px; border: 0; padding: 0 0 2px; background: none; outline: 0; color: var(--ink);
-  border-bottom: 1px solid transparent; transition: border-color .2s;
+  width: 220px; border: 0; padding: 0 0 5px; background: none; outline: 0; color: var(--ink);
+  border-bottom: 1px solid var(--hair); transition: border-color .2s;
 }
 .npd-home .filter input::placeholder { color: var(--grey); }
 .npd-home .filter input:focus { border-bottom-color: var(--ink); }
@@ -1059,7 +1078,7 @@ ul.actions,
 .npd-home .count { color: var(--grey); font-variant-numeric: tabular-nums; }
 .npd-home .text-toggle { display: flex; gap: 12px; }
 .npd-home .text-toggle button {
-  border: 0; padding: 0; background: none; cursor: pointer; color: var(--grey);
+  border: 0; padding: 6px 4px; background: none; cursor: pointer; color: var(--grey);
   background-image: linear-gradient(var(--ink), var(--ink));
   background-size: 0 1px; background-repeat: no-repeat; background-position: 0 100%;
   transition: color .2s, background-size .3s var(--ease);
@@ -1461,4 +1480,52 @@ ul.actions,
     padding-top: 8px;
     font-size: 11.5px;
   }
+}
+
+/* ---------- Tipografia técnica para códigos de referência e datas ---------- */
+.npd-home .count,
+.fonds-card__placeholder,
+.fonds-card__sub,
+.shelf-box__label-ref,
+.shelf-box__label-meta,
+.shelf-box__ref,
+.shelf-box__noimg,
+.shelf-box__meta dd {
+  font-family: var(--font-mono);
+}
+
+/* ---------- Rodapé Institucional NPD · FAU UFRJ ---------- */
+.npd-footer {
+  margin-top: 24px;
+  padding: 28px 0 40px;
+  border-top: 1px solid var(--ink);
+  color: var(--grey);
+  font-size: 13px;
+}
+
+.npd-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px 28px;
+}
+
+.npd-footer__title {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.npd-footer__links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.npd-footer__links a {
+  color: var(--grey);
+}
+
+.npd-footer__links a:hover {
+  color: var(--ink);
 }

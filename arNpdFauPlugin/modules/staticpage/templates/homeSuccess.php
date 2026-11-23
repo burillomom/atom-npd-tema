@@ -114,7 +114,6 @@
           <img class="hero-logo hero-logo-ufrj logo-dark" src="/plugins/arNpdFauPlugin/images/logo-ufrj-dark.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
         </a>
       </div>
-      <p class="eyebrow">Faculdade de Arquitetura e Urbanismo<br>Universidade Federal do Rio de Janeiro</p>
       <h1>Núcleo de Pesquisa<br>e Documentação</h1>
     </div>
     <div class="intro__text">
@@ -132,6 +131,7 @@
     <div class="toolbar">
       <label class="filter">
         <span class="visually-hidden"><?php echo __('Filtrar fundos'); ?></span>
+        <i class="fas fa-search npd-filter-icon" aria-hidden="true"></i>
         <input id="fonds-filter" type="search" placeholder="<?php echo __('Filtrar'); ?>" autocomplete="off">
       </label>
 
