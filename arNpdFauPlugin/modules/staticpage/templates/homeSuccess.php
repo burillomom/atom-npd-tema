@@ -99,13 +99,14 @@
 <div class="npd-home">
   <section class="intro">
     <div class="intro__title">
+      <?php $fauVer = @filemtime(sfConfig::get('sf_plugins_dir').'/arNpdFauPlugin/images/logo-fau.svg') ?: 2; ?>
       <div class="npd-hero-logos">
         <img class="hero-logo hero-logo-npd logo-light" src="/plugins/arNpdFauPlugin/images/logo-npd-full.png" alt="NPD — Núcleo de Pesquisa e Documentação">
         <img class="hero-logo hero-logo-npd logo-dark" src="/plugins/arNpdFauPlugin/images/logo-npd-full-dark.png" alt="NPD — Núcleo de Pesquisa e Documentação">
         <span class="hero-logos-sep" aria-hidden="true"></span>
         <a class="hero-logo-link" href="https://fau.ufrj.br/" target="_blank" rel="noopener noreferrer" title="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
-          <img class="hero-logo hero-logo-fau logo-light" src="/plugins/arNpdFauPlugin/images/logo-fau.svg" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
-          <img class="hero-logo hero-logo-fau logo-dark" src="/plugins/arNpdFauPlugin/images/logo-fau-dark.svg" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
+          <img class="hero-logo hero-logo-fau logo-light" src="/plugins/arNpdFauPlugin/images/logo-fau.svg?v=<?php echo $fauVer; ?>" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
+          <img class="hero-logo hero-logo-fau logo-dark" src="/plugins/arNpdFauPlugin/images/logo-fau-dark.svg?v=<?php echo $fauVer; ?>" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
         </a>
         <span class="hero-logos-sep" aria-hidden="true"></span>
         <a class="hero-logo-link" href="https://ufrj.br/" target="_blank" rel="noopener noreferrer" title="UFRJ — Universidade Federal do Rio de Janeiro">
