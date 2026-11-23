@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 454 190" fill="#111111">
+  <!-- Linhas diagonais de construção -->
+  <path d="M14 14 L86.5 182" stroke="#111111" stroke-width="2.6" stroke-linecap="butt" fill="none"/>
+  <path d="M99.5 189 L362.5 1" stroke="#111111" stroke-width="2.6" stroke-linecap="butt" fill="none"/>
+
+  <!-- F -->
+  <path d="M0 0 H115 V15 H15 V88 H95 V103 H15 V189 H0 Z"/>
+
+  <!-- A -->
+  <path d="M161 0 H176 L251.5 181.5 L237 189.5 L168.5 24 L100 189.5 L85.5 181.5 Z"/>
+
+  <!-- U -->
+  <path d="M253 0 H268 V127 A47 47 0 0 0 362 127 V0 H377 V127 A62 62 0 0 1 253 127 Z"/>
+
+  <!-- UFRJ vertical (J, R, F, U de cima para baixo, rotacionados -90 graus) -->
+  <path d="M407 0 H439 A14 14 0 0 1 453 14 A14 14 0 0 1 445 26.6 L439.8 21.8 A5.2 5.2 0 0 0 444 14 A4.8 4.8 0 0 0 439 9.5 H407 Z"/>
+  <path fill-rule="evenodd" d="M407 74.5 V54.5 A14.25 12.5 0 0 1 435.5 54.5 V65 H453.5 V74.5 Z M416 65 H426.5 V55 A5.25 5.25 0 0 0 416 55 Z"/>
+  <path d="M425.5 51.5 L453.5 39.5 V49.5 L431.5 58.5 Z"/>
+  <path d="M407 123.5 V93 H416.5 V114 H426.5 V96 H435.5 V114 H453.5 V123.5 Z"/>
+  <path d="M407 145 H436 A17.25 17.25 0 0 1 436 179.5 H407 V170 H436 A7.75 7.75 0 0 0 436 154.5 H407 Z"/>
+</svg>

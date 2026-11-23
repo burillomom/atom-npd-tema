@@ -180,6 +180,7 @@ a:hover {
     margin-bottom: 18px;
   }
   .npd-hero-logos .hero-logo { height: 30px; }
+  .npd-hero-logos .hero-logo-fau { height: 28px; }
   .npd-hero-logos .hero-logo-ufrj { height: 32px; }
   .npd-hero-logos .hero-logos-sep { height: 24px; }
   .npd-home .filter {
@@ -992,6 +993,9 @@ ul.actions,
   height: 38px;
   width: auto;
   display: block;
+}
+.npd-hero-logos .hero-logo-fau {
+  height: 35px;
 }
 .npd-hero-logos .hero-logo-ufrj {
   height: 40px;

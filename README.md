@@ -11,7 +11,7 @@ Tema minimalista (inspirado no design gráfico suíço) para o acervo do **Núcl
 - **Página inicial com Prateleira de Caixas-Arquivo (principal) + Grade (secundária):**
   - Caixas uniformes com etiqueta retangular (código, nome, datas) e furo dedal; no *hover* (ou toque no celular), revelam a imagem do fundo, datas, total de séries e quantidade de itens.
   - Filtro instantâneo e ordenação por **A–Z** ou **Data**.
-- **Logos institucionais (NPD + UFRJ):** versões específicas para os modos claro e escuro no Hero, mantendo apenas o símbolo do NPD fixo na barra superior.
+- **Logos institucionais (NPD + FAU + UFRJ):** versões específicas para os modos claro e escuro no Hero, mantendo apenas o símbolo do NPD fixo na barra superior.
 - **Responsivo:** barra de pesquisa acessível diretamente na *topbar* do celular entre a logo e o menu `☰`.
 
 ---
