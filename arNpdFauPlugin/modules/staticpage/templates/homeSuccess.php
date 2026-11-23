@@ -22,10 +22,6 @@
       ? '<p>O NPD reúne, preserva e torna acessíveis os arquivos de arquitetos e escritórios que marcaram a arquitetura e o urbanismo no Brasil, apoiando o ensino e a pesquisa na FAU&nbsp;UFRJ.</p>'
       : render_value_html($rawContent);
 
-  $totalSeries = 0;
-  $totalItems = 0;
-  $minYear = null;
-  $maxYear = null;
   $fondsData = [];
 
   foreach ($topFonds as $item) {
@@ -44,11 +40,6 @@
               if ('' === $startYear) {
                   $startYear = $y;
               }
-              $minYear = null === $minYear ? $y : min($minYear, $y);
-          }
-          if (preg_match_all('/(\d{4})/', (string) $d->endDate ?: $display, $mAll) && !empty($mAll[1])) {
-              $yEnd = (int) end($mAll[1]);
-              $maxYear = null === $maxYear ? $yEnd : max($maxYear, $yEnd);
           }
       }
 
@@ -63,7 +54,6 @@
               AND ti.name IN (?, ?)',
           [$item->id, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID, 'Series', 'Série']
       );
-      $totalSeries += $seriesCount;
 
       // Contagem total de itens (descendentes com nível Item; se não houver, total de descendentes)
       $itemsCount = (int) QubitPdo::fetchColumn(
@@ -83,7 +73,6 @@
               [$item->lft, $item->rgt]
           );
       }
-      $totalItems += $itemsCount;
 
       $thumbPath = null;
       if ($do = $item->getDigitalObject()) {
@@ -105,8 +94,6 @@
           'thumb' => $thumbPath,
       ];
   }
-
-  $rangeText = ($minYear && $maxYear) ? ($minYear.'–'.$maxYear) : '';
 ?>
 
 <div class="npd-home">
@@ -127,19 +114,11 @@
         <?php echo $heroLeadHtml; ?>
       </div>
     </div>
-    <dl class="facts">
-      <div><dt><?php echo __('Fundos'); ?></dt><dd><?php echo count($fondsData); ?></dd></div>
-      <div><dt><?php echo __('Séries'); ?></dt><dd><?php echo $totalSeries; ?></dd></div>
-      <div><dt><?php echo __('Documentos'); ?></dt><dd><?php echo number_format($totalItems, 0, ',', '.'); ?></dd></div>
-    </dl>
   </section>
 
   <section id="fonds" aria-labelledby="fonds-title">
     <h2 id="fonds-title" class="section-title">
       <?php echo __('Fundos'); ?>
-      <?php if ($rangeText) { ?>
-        <span class="range"><?php echo $rangeText; ?></span>
-      <?php } ?>
     </h2>
 
     <div class="toolbar">

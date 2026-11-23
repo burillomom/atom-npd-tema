@@ -7,7 +7,7 @@ Tema minimalista (inspirado no design gráfico suíço) para o acervo do **Núcl
 ## Principais recursos
 
 - **Baseado no tema padrão (`arDominionB5Plugin`):** estende `arDominionB5PluginConfiguration` sem modificar arquivos do *core* e **sem precisar rodar Webpack/Node no servidor**.
-- **Modo Escuro como padrão + alternância por ícone (sol/lua):** integrado a todas as páginas (Home, Descrições Arquivísticas, Busca Avançada, Assuntos, Locais, Login e Páginas de Fundos), com elementos *seamless* sobre o fundo.
+- **Modo Claro como padrão + alternância por ícone (lua/sol):** integrado a todas as páginas (Home, Descrições Arquivísticas, Busca Avançada, Assuntos, Locais, Login e Páginas de Fundos), com elementos *seamless* sobre o fundo.
 - **Página inicial com Prateleira de Caixas-Arquivo (principal) + Grade (secundária):**
   - Caixas uniformes com etiqueta retangular (código, nome, datas) e furo dedal; no *hover* (ou toque no celular), revelam a imagem do fundo, datas, total de séries e quantidade de itens.
   - Filtro instantâneo e ordenação por **A–Z** ou **Data**.

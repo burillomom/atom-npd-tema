@@ -156,13 +156,16 @@
       themeBtn.setAttribute("aria-label", dark ? "Alternar modo claro" : "Alternar modo noturno");
       themeBtn.setAttribute("title", dark ? "Modo claro" : "Modo noturno");
     }
-    try { localStorage.setItem("npd-theme", dark ? "dark" : "light"); } catch (e) {}
+    try {
+      localStorage.removeItem("npd-theme");
+      localStorage.setItem("npd-theme-mode", dark ? "dark" : "light");
+    } catch (e) {}
   }
   var urlDark = /[?&]theme=dark\b/.test(location.search);
   var urlLight = /[?&]theme=light\b/.test(location.search);
   var savedTheme = null;
-  try { savedTheme = localStorage.getItem("npd-theme"); } catch (e) {}
-  setTheme(urlDark ? true : urlLight ? false : (savedTheme ? savedTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches));
+  try { savedTheme = localStorage.getItem("npd-theme-mode"); } catch (e) {}
+  setTheme(urlDark ? true : urlLight ? false : (savedTheme ? savedTheme === "dark" : false));
   if (themeBtn) {
     themeBtn.addEventListener("click", function () {
       setTheme(document.documentElement.dataset.theme !== "dark");
@@ -170,13 +173,19 @@
   }
 
   /* Init */
-  var starts = fonds.map(function (f) { return f.start; });
-  var ends = fonds.map(function (f) { return parseInt(f.dates.split("–").pop(), 10); });
-  var range = Math.min.apply(null, starts) + "–" + Math.max.apply(null, ends);
-  document.getElementById("fonds-range").textContent = range;
-  document.getElementById("fact-range").textContent = range;
-  document.getElementById("fact-count").textContent = fonds.length;
-  document.getElementById("fact-series").textContent = fonds.reduce(function (n, f) { return n + f.series; }, 0);
+  var fondsRangeEl = document.getElementById("fonds-range");
+  var factRangeEl = document.getElementById("fact-range");
+  var factCountEl = document.getElementById("fact-count");
+  var factSeriesEl = document.getElementById("fact-series");
+  if (fondsRangeEl || factRangeEl) {
+    var starts = fonds.map(function (f) { return f.start; });
+    var ends = fonds.map(function (f) { return parseInt(f.dates.split("–").pop(), 10); });
+    var range = Math.min.apply(null, starts) + "–" + Math.max.apply(null, ends);
+    if (fondsRangeEl) fondsRangeEl.textContent = range;
+    if (factRangeEl) factRangeEl.textContent = range;
+  }
+  if (factCountEl) factCountEl.textContent = fonds.length;
+  if (factSeriesEl) factSeriesEl.textContent = fonds.reduce(function (n, f) { return n + f.series; }, 0);
 
   computeOrder();
   render();

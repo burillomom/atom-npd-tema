@@ -3,7 +3,7 @@
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- 1. Modo Noturno em todas as páginas ---------- */
+  /* ---------- 1. Modo Claro (padrão) / Modo Noturno em todas as páginas ---------- */
   function setTheme(dark) {
     document.documentElement.dataset.theme = dark ? "dark" : "light";
     var btn = document.getElementById("npd-theme-toggle");
@@ -11,14 +11,17 @@
       btn.setAttribute("aria-label", dark ? "Alternar modo claro" : "Alternar modo noturno");
       btn.setAttribute("title", dark ? "Modo claro" : "Modo noturno");
     }
-    try { localStorage.setItem("npd-theme", dark ? "dark" : "light"); } catch (e) {}
+    try {
+      localStorage.removeItem("npd-theme");
+      localStorage.setItem("npd-theme-mode", dark ? "dark" : "light");
+    } catch (e) {}
   }
 
   var urlDark = /[?&]theme=dark\b/.test(location.search);
   var urlLight = /[?&]theme=light\b/.test(location.search);
   var savedTheme = null;
-  try { savedTheme = localStorage.getItem("npd-theme"); } catch (e) {}
-  var initDark = urlDark ? true : urlLight ? false : (savedTheme ? savedTheme === "dark" : true);
+  try { savedTheme = localStorage.getItem("npd-theme-mode"); } catch (e) {}
+  var initDark = urlDark ? true : urlLight ? false : (savedTheme ? savedTheme === "dark" : false);
   setTheme(initDark);
 
   var navContainer = document.getElementById("npd-right-nav") || document.querySelector("#top-bar .navbar-nav");

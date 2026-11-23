@@ -100,21 +100,11 @@
         <li><?php echo link_to(__('Entidade custodiadora'), ['module' => 'repository', 'action' => 'browse']); ?></li>
       </ul>
     </div>
-    <dl class="facts">
-      <div><dt><?php echo __('Fundos'); ?></dt><dd><?php echo count($fondsData); ?></dd></div>
-      <div><dt><?php echo __('Séries'); ?></dt><dd><?php echo $totalSeries; ?></dd></div>
-      <?php if ($rangeText) { ?>
-        <div><dt><?php echo __('Período'); ?></dt><dd><?php echo $rangeText; ?></dd></div>
-      <?php } ?>
-    </dl>
   </section>
 
   <section id="fonds" aria-labelledby="fonds-title">
     <h2 id="fonds-title" class="section-title">
       <?php echo __('Fundos'); ?>
-      <?php if ($rangeText) { ?>
-        <span class="range"><?php echo $rangeText; ?></span>
-      <?php } ?>
     </h2>
 
     <div class="toolbar">
