@@ -4,15 +4,19 @@
    ========================================================================== */
 
 :root {
-  --box-bg: #e5e3dc;
-  --box-label: #fafaf6;
+  --box-bg: #dcdad2;
+  --box-label: #ffffff;
   --box-bg-hover: #ffffff;
+  --box-border: #b5b4ad;
+  --box-meta: #52524e;
 }
 
 [data-theme="dark"] {
-  --box-bg: #1a1a18;
-  --box-label: #232320;
-  --box-bg-hover: #20201d;
+  --box-bg: #22221f;
+  --box-label: #2e2e2a;
+  --box-bg-hover: #282824;
+  --box-border: #484843;
+  --box-meta: #b0b0a8;
 }
 
 .shelves-wrap {
@@ -35,7 +39,7 @@
   flex: 0 0 116px;
   height: 320px;
   background: var(--box-bg);
-  border: 1px solid var(--hair);
+  border: 1px solid var(--box-border);
   overflow: hidden;
   transition:
     flex-basis .48s var(--ease),
@@ -85,7 +89,7 @@
   flex: 1;
   max-height: 236px;
   background: var(--box-label);
-  border: 1px solid var(--hair);
+  border: 1px solid var(--box-border);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -99,8 +103,8 @@
   font-weight: 500;
   letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--grey);
-  border-bottom: 1px solid var(--hair);
+  color: var(--box-meta);
+  border-bottom: 1px solid var(--box-border);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,8 +129,8 @@
   padding: 6px 8px;
   font-size: 10.5px;
   font-variant-numeric: tabular-nums;
-  color: var(--grey);
-  border-top: 1px solid var(--hair);
+  color: var(--box-meta);
+  border-top: 1px solid var(--box-border);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -138,7 +142,7 @@
   margin-top: 14px;
   border-radius: 50%;
   background: var(--bg);
-  border: 1px solid var(--hair);
+  border: 1px solid var(--box-border);
   flex-shrink: 0;
 }
 
@@ -190,12 +194,12 @@
 .shelf-box__noimg {
   width: 100%;
   height: 100%;
-  border: 1px dashed var(--hair);
+  border: 1px dashed var(--box-border);
   display: flex;
   align-items: flex-end;
   padding: 12px;
   font-size: 11px;
-  color: var(--grey);
+  color: var(--box-meta);
   text-transform: uppercase;
   letter-spacing: .06em;
 }
@@ -226,7 +230,7 @@
   gap: 14px;
   margin: auto 0 0;
   padding-top: 10px;
-  border-top: 1px solid var(--hair);
+  border-top: 1px solid var(--box-border);
   font-size: 12px;
 }
 

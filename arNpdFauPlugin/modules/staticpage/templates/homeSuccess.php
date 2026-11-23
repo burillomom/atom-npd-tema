@@ -14,23 +14,6 @@
   }
   $topFonds = QubitInformationObject::get($criteria);
 
-  // Entidade custodiadora principal para o link "Sobre o NPD" (ignora nós internos sem nome)
-  $repoId = (int) QubitPdo::fetchColumn(
-      'SELECT r.id
-         FROM repository r
-         INNER JOIN actor_i18n ai ON ai.id = r.id
-        WHERE r.id <> ?
-          AND ai.authorized_form_of_name IS NOT NULL
-          AND LENGTH(TRIM(ai.authorized_form_of_name)) > 0
-        ORDER BY r.id ASC
-        LIMIT 1',
-      [QubitRepository::ROOT_ID]
-  );
-  $mainRepo = $repoId ? QubitRepository::getById($repoId) : null;
-  $aboutNpdUrl = $mainRepo
-      ? url_for([$mainRepo, 'module' => 'repository'])
-      : url_for(['module' => 'repository', 'action' => 'browse']);
-
   // Conteúdo institucional: usa o texto do NPD se a página ainda estiver com o texto padrão do AtoM
   $rawContent = (string) $sf_data->getRaw('content');
   $isDefaultAtomHome = ('' === trim(strip_tags($rawContent)))
@@ -143,9 +126,6 @@
       <div class="lead">
         <?php echo $heroLeadHtml; ?>
       </div>
-      <ul class="intro__links">
-        <li><a href="<?php echo $aboutNpdUrl; ?>"><?php echo __('Sobre o NPD'); ?></a></li>
-      </ul>
     </div>
     <dl class="facts">
       <div><dt><?php echo __('Fundos'); ?></dt><dd><?php echo count($fondsData); ?></dd></div>

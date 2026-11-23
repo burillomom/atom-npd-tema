@@ -4,13 +4,15 @@
    ========================================================================== */
 
 :root {
-  --box-bg: #f4f4ef;
+  --box-bg: #dcdad2;
   --box-bg-hover: #ffffff;
+  --box-border: #b5b4ad;
 }
 
 [data-theme="dark"] {
-  --box-bg: #181816;
-  --box-bg-hover: #20201d;
+  --box-bg: #22221f;
+  --box-bg-hover: #282824;
+  --box-border: #484843;
 }
 
 .shelves-wrap {
@@ -33,7 +35,7 @@
   flex: 0 0 76px;
   height: 320px;
   background: var(--box-bg);
-  border: 1px solid var(--hair);
+  border: 1px solid var(--box-border);
   overflow: hidden;
   transition:
     flex-basis .48s var(--ease),
@@ -85,7 +87,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1px solid var(--hair);
+  border: 1px solid var(--box-border);
   flex-shrink: 0;
 }
 

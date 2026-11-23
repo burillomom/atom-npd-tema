@@ -61,7 +61,6 @@ docker exec <nome-do-container-atom> php /atom/src/symfony cc
 ### Passo importante no painel do AtoM (após instalar)
 
 1. **Texto institucional do Hero:** por padrão, se a página inicial ainda tiver o texto original em inglês do AtoM (*"This is the default homepage for AtoM..."*), o tema exibe automaticamente o texto institucional do NPD. Para editar esse texto pelo painel, faça login como administrador e clique em **Edit** no rodapé da página inicial (ou acesse **Admin > Static pages > Home**).
-2. **Link `Sobre o NPD`:** aponta automaticamente para a primeira Entidade Custodiadora cadastrada (`QubitRepository`). Caso haja mais de uma entidade ou você queira apontar para uma página estática específica, edite as linhas 18–23 de `arNpdFauPlugin/modules/staticpage/templates/homeSuccess.php` e rode `php symfony cc`.
 
 ---
 

@@ -96,7 +96,6 @@
         <?php echo render_value_html($sf_data->getRaw('content')); ?>
       </p>
       <ul class="intro__links">
-        <li><?php echo link_to(__('Sobre o NPD'), ['module' => 'staticpage', 'slug' => 'about']); ?></li>
         <li><?php echo link_to(__('Descrições arquivísticas'), ['module' => 'informationobject', 'action' => 'browse']); ?></li>
         <li><?php echo link_to(__('Entidade custodiadora'), ['module' => 'repository', 'action' => 'browse']); ?></li>
       </ul>
