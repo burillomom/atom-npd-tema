@@ -1000,6 +1000,15 @@ ul.actions,
 .npd-hero-logos .hero-logo-ufrj {
   height: 40px;
 }
+.npd-hero-logos .hero-logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none !important;
+  transition: opacity .2s var(--ease);
+}
+.npd-hero-logos .hero-logo-link:hover {
+  opacity: .75;
+}
 .npd-hero-logos .hero-logos-sep {
   width: 1px;
   height: 30px;

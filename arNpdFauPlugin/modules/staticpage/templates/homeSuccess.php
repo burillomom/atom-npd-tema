@@ -103,11 +103,15 @@
         <img class="hero-logo hero-logo-npd logo-light" src="/plugins/arNpdFauPlugin/images/logo-npd-full.png" alt="NPD — Núcleo de Pesquisa e Documentação">
         <img class="hero-logo hero-logo-npd logo-dark" src="/plugins/arNpdFauPlugin/images/logo-npd-full-dark.png" alt="NPD — Núcleo de Pesquisa e Documentação">
         <span class="hero-logos-sep" aria-hidden="true"></span>
-        <img class="hero-logo hero-logo-fau logo-light" src="/plugins/arNpdFauPlugin/images/logo-fau.svg" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
-        <img class="hero-logo hero-logo-fau logo-dark" src="/plugins/arNpdFauPlugin/images/logo-fau-dark.svg" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
+        <a class="hero-logo-link" href="https://fau.ufrj.br/" target="_blank" rel="noopener noreferrer" title="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
+          <img class="hero-logo hero-logo-fau logo-light" src="/plugins/arNpdFauPlugin/images/logo-fau.svg" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
+          <img class="hero-logo hero-logo-fau logo-dark" src="/plugins/arNpdFauPlugin/images/logo-fau-dark.svg" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
+        </a>
         <span class="hero-logos-sep" aria-hidden="true"></span>
-        <img class="hero-logo hero-logo-ufrj logo-light" src="/plugins/arNpdFauPlugin/images/logo-ufrj.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
-        <img class="hero-logo hero-logo-ufrj logo-dark" src="/plugins/arNpdFauPlugin/images/logo-ufrj-dark.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
+        <a class="hero-logo-link" href="https://ufrj.br/" target="_blank" rel="noopener noreferrer" title="UFRJ — Universidade Federal do Rio de Janeiro">
+          <img class="hero-logo hero-logo-ufrj logo-light" src="/plugins/arNpdFauPlugin/images/logo-ufrj.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
+          <img class="hero-logo hero-logo-ufrj logo-dark" src="/plugins/arNpdFauPlugin/images/logo-ufrj-dark.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
+        </a>
       </div>
       <p class="eyebrow">Faculdade de Arquitetura e Urbanismo<br>Universidade Federal do Rio de Janeiro</p>
       <h1>Núcleo de Pesquisa<br>e Documentação</h1>
