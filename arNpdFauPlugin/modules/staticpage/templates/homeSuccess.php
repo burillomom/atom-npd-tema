@@ -114,7 +114,7 @@
           <img class="hero-logo hero-logo-ufrj logo-dark" src="/plugins/arNpdFauPlugin/images/logo-ufrj-dark.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
         </a>
       </div>
-      <h1>Núcleo de Pesquisa<br>e Documentação</h1>
+      <h1>Núcleo de Pesquisa <br>e Documentação</h1>
     </div>
     <div class="intro__text">
       <div class="lead">
