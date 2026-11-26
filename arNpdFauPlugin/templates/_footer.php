@@ -5,7 +5,7 @@
       <div class="npd-footer__inner">
         <div>
           <span class="npd-footer__title">NPD · FAU UFRJ</span>
-          <span> — Av. Pedro Calmon, 550, Prédio da Reitoria, 6º andar, Cidade Universitária, Rio de Janeiro</span>
+          <span> — Av. Pedro Calmon, 550, Edifício Jorge Machado Moreira, 2º andar, Cidade Universitária, Rio de Janeiro, RJ · CEP 21941-590</span>
         </div>
         <div class="npd-footer__links">
           <a href="https://fau.ufrj.br/" target="_blank" rel="noopener noreferrer">FAU UFRJ</a>

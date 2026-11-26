@@ -972,16 +972,16 @@ ul.actions,
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap-x);
   row-gap: 40px;
-  align-items: end;
+  align-items: start;
   padding-top: 28px;
-  padding-bottom: 48px;
-  margin-bottom: 56px;
+  padding-bottom: 44px;
+  margin-bottom: 48px;
   border-bottom: 1px solid var(--ink);
   animation: npd-rise .8s var(--ease) both;
 }
 
-.npd-home .intro__title { grid-column: 1 / span 7; }
-.npd-home .intro__text { grid-column: 8 / span 5; }
+.npd-home .intro__title { grid-column: 1 / span 6; }
+.npd-home .intro__text { grid-column: 7 / span 6; }
 .npd-hero-logos {
   display: flex;
   align-items: center;
@@ -1024,7 +1024,8 @@ ul.actions,
   letter-spacing: -.035em;
   margin: 0;
 }
-.npd-home .lead { margin: 0; font-size: 15.5px; line-height: 1.45; max-width: 460px; color: var(--ink); }
+.npd-home .lead { margin: 0; font-size: 14.5px; line-height: 1.55; max-width: 58ch; color: var(--ink); }
+.npd-home .lead p { margin-bottom: 10px; }
 .npd-home .lead p:last-child { margin-bottom: 0; }
 .npd-home .intro__links { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; flex-wrap: wrap; color: var(--grey); }
 .npd-home .intro__links a:hover { color: var(--ink); }
