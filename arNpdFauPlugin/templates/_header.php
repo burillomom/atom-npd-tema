@@ -40,7 +40,7 @@
         <li class="nav-item">
           <a class="nav-link <?php echo ('staticpage' === $mod && 'home' === $act) ? 'is-active' : ''; ?>"
              href="<?php echo url_for('@homepage'); ?>">
-            <?php echo __('Fundos'); ?>
+            <?php echo __('Início'); ?>
           </a>
         </li>
         <li class="nav-item">

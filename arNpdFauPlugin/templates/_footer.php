@@ -13,6 +13,10 @@
           <a href="https://www.accesstomemory.org/" target="_blank" rel="noopener noreferrer">AtoM</a>
         </div>
       </div>
+      <div class="npd-footer__support">
+        <span class="npd-footer__support-label">Apoio</span>
+        <span>CNPq · FAPERJ · FINEP · Getty Foundation · British Library</span>
+      </div>
     </div>
   </div>
 
