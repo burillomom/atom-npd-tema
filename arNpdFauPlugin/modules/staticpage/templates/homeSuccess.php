@@ -99,22 +99,31 @@
 <div class="npd-home">
   <section class="intro">
     <div class="intro__title">
-      <?php $fauVer = @filemtime(sfConfig::get('sf_plugins_dir').'/arNpdFauPlugin/images/logo-fau.svg') ?: 2; ?>
-      <div class="npd-hero-logos">
-        <img class="hero-logo hero-logo-npd logo-light" src="/plugins/arNpdFauPlugin/images/logo-npd-full.png" alt="NPD — Núcleo de Pesquisa e Documentação">
-        <img class="hero-logo hero-logo-npd logo-dark" src="/plugins/arNpdFauPlugin/images/logo-npd-full-dark.png" alt="NPD — Núcleo de Pesquisa e Documentação">
-        <span class="hero-logos-sep" aria-hidden="true"></span>
-        <a class="hero-logo-link" href="https://fau.ufrj.br/" target="_blank" rel="noopener noreferrer" title="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
-          <img class="hero-logo hero-logo-fau logo-light" src="/plugins/arNpdFauPlugin/images/logo-fau.svg?v=<?php echo $fauVer; ?>" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
-          <img class="hero-logo hero-logo-fau logo-dark" src="/plugins/arNpdFauPlugin/images/logo-fau-dark.svg?v=<?php echo $fauVer; ?>" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
-        </a>
-        <span class="hero-logos-sep" aria-hidden="true"></span>
-        <a class="hero-logo-link" href="https://ufrj.br/" target="_blank" rel="noopener noreferrer" title="UFRJ — Universidade Federal do Rio de Janeiro">
-          <img class="hero-logo hero-logo-ufrj logo-light" src="/plugins/arNpdFauPlugin/images/logo-ufrj.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
-          <img class="hero-logo hero-logo-ufrj logo-dark" src="/plugins/arNpdFauPlugin/images/logo-ufrj-dark.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
-        </a>
+      <div class="intro__title-top">
+        <?php $fauVer = @filemtime(sfConfig::get('sf_plugins_dir').'/arNpdFauPlugin/images/logo-fau.svg') ?: 2; ?>
+        <div class="npd-hero-logos">
+          <img class="hero-logo hero-logo-npd logo-light" src="/plugins/arNpdFauPlugin/images/logo-npd-full.png" alt="NPD — Núcleo de Pesquisa e Documentação">
+          <img class="hero-logo hero-logo-npd logo-dark" src="/plugins/arNpdFauPlugin/images/logo-npd-full-dark.png" alt="NPD — Núcleo de Pesquisa e Documentação">
+          <span class="hero-logos-sep" aria-hidden="true"></span>
+          <a class="hero-logo-link" href="https://fau.ufrj.br/" target="_blank" rel="noopener noreferrer" title="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
+            <img class="hero-logo hero-logo-fau logo-light" src="/plugins/arNpdFauPlugin/images/logo-fau.svg?v=<?php echo $fauVer; ?>" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
+            <img class="hero-logo hero-logo-fau logo-dark" src="/plugins/arNpdFauPlugin/images/logo-fau-dark.svg?v=<?php echo $fauVer; ?>" alt="FAU UFRJ — Faculdade de Arquitetura e Urbanismo">
+          </a>
+          <span class="hero-logos-sep" aria-hidden="true"></span>
+          <a class="hero-logo-link" href="https://ufrj.br/" target="_blank" rel="noopener noreferrer" title="UFRJ — Universidade Federal do Rio de Janeiro">
+            <img class="hero-logo hero-logo-ufrj logo-light" src="/plugins/arNpdFauPlugin/images/logo-ufrj.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
+            <img class="hero-logo hero-logo-ufrj logo-dark" src="/plugins/arNpdFauPlugin/images/logo-ufrj-dark.png" alt="UFRJ — Universidade Federal do Rio de Janeiro">
+          </a>
+        </div>
+        <h1>Núcleo de Pesquisa <br>e Documentação</h1>
       </div>
-      <h1>Núcleo de Pesquisa <br>e Documentação</h1>
+      <div class="intro__meta">
+        <p class="intro__contact">Contato: <a href="mailto:npd@fau.ufrj.br">npd@fau.ufrj.br</a></p>
+        <ul class="intro__links">
+          <li><a href="<?php echo url_for(['module' => 'repository', 'action' => 'index', 'slug' => 'nucleo-de-pesquisa-e-documentacao-da-faculdade-de-arquitetura-e-urbanismo-da-ufrj']); ?>"><?php echo __('Sobre o NPD'); ?></a></li>
+          <li><a href="<?php echo url_for(['module' => 'staticpage', 'action' => 'index', 'slug' => 'about']); ?>"><?php echo __('Como pesquisar'); ?></a></li>
+        </ul>
+      </div>
     </div>
     <div class="intro__text">
       <div class="lead">
